@@ -12,6 +12,16 @@ import UIKit
 struct ContentView: View {
     @ObservedObject var viewModel: BoardViewModel
     
+    /// Container for the constants used in the view
+    private struct ViewConstants {
+        static let headerSpacerHeight: CGFloat = 40
+        static let rowPadding: CGFloat = 2
+        static let boardSize: CGFloat = 300
+        static let boardPadding: CGFloat = 10
+        static let boardCornerRadius: CGFloat = 10
+        static let leaderBoardStickyButtonBackgroundColor: Color = Color(red: 211/255, green: 211/255, blue: 211/255)
+    }
+    
     private var boardSwipe: some Gesture {
         DragGesture()
             .onEnded {
@@ -31,22 +41,43 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            Spacer().frame(height: 40)
-                VStack {
-                    ForEach(0..<4) { rowIdx in
-                        HStack {
-                            ForEach(0..<viewModel.dimension) { colIdx in
-                                TileView(tile: viewModel.tiles[(rowIdx * viewModel.dimension + colIdx)])
-                            }
+            Spacer().frame(height: ViewConstants.headerSpacerHeight)
+            VStack {
+                ForEach(0..<viewModel.dimension) { rowIdx in
+                    HStack {
+                        ForEach(0..<viewModel.dimension) { colIdx in
+                            TileView(tile: viewModel.tiles[(rowIdx * viewModel.dimension + colIdx)])
                         }
-                        .padding(2)
+                    }
+                    .padding(ViewConstants.rowPadding)
+                }
+            }
+            .frame(width: ViewConstants.boardSize, height: ViewConstants.boardSize)
+            .padding(ViewConstants.boardPadding)
+            .background(Color.gray.cornerRadius(ViewConstants.boardCornerRadius))
+            .gesture(boardSwipe)
+            Spacer()
+            ZStack {
+                HStack {
+                    Button(action: {
+                        print()
+                    }) {
+                        Text("Leaderboard")
+                            .font(.system(size: 18))
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(
+                                RoundedRectangle(cornerRadius: 12)
+                                    .stroke(Color.blue, lineWidth: 2)
+                                    .fill(Color.white)
+                            )
                     }
                 }
-                .frame(width: 300, height: 300)
-                .padding(8)
-                .background(Color.gray.cornerRadius(10))
-                .gesture(boardSwipe)
-            Spacer()
+            }
+            .frame(maxWidth: .infinity)
+            .padding()
+            .overlay(Divider().background(Color.blue), alignment: .top)
+            .background(ViewConstants.leaderBoardStickyButtonBackgroundColor)
         }
     }
 }
@@ -71,7 +102,7 @@ struct TileView: View {
         case 9: color = Color(red: 237/255, green: 200/255, blue: 80/255)
         case 10: color = Color(red: 237/255, green: 197/255, blue: 63/255)
         case 11: color = Color(red: 237/255, green: 194/255, blue: 46/255)
-        default: color = .clear
+        default: color = .red
         }
         
         return color
