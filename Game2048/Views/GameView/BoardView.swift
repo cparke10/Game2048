@@ -45,7 +45,7 @@ struct BoardView: View {
                         TileView(tile: viewModel.tiles[(rowIdx * 4 + colIdx)])
                     }
                 }
-                .padding(1)
+                .padding(ViewConstants.rowPadding)
             }
         }
         .frame(width: ViewConstants.boardSize, height: ViewConstants.boardSize)
