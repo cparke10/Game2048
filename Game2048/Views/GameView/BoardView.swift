@@ -39,7 +39,7 @@ struct BoardView: View {
     
     var body: some View {
         VStack {
-            ForEach(viewModel.tiles, id: \.self) { row in
+            ForEach(viewModel.tileViewModels, id: \.self) { row in
                 HStack {
                     ForEach(row) { tile in
                         TileView(tile: tile)

@@ -12,10 +12,12 @@ class BoardViewModel: ObservableObject {
     @Published private var model = BoardModel()
     var isSwiping = false
     
-    var tiles: [[TileViewModel]] {
+    /// The tile view models in the board model.
+    var tileViewModels: [[TileViewModel]] {
         return model.tiles.map { row in row.map { TileViewModel($0.value) } }
     }
     
+    /// Performs the collapse on the board model.
     func collapse(direction: BoardModel.CollapseDirection) {
         model.collapse(direction)
     }
