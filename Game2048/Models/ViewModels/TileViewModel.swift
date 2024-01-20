@@ -7,12 +7,13 @@
 
 import Foundation
 
-struct TileViewModel {
-    init(_ tile: BoardModel.Tile) {
-        value = tile.value
-    }
-    
+struct TileViewModel: Identifiable, Hashable {
     let value: Int
+    let id = UUID()
+    
+    init(_ value: Int) {
+        self.value = value
+    }
 }
 
 extension TileViewModel: CustomStringConvertible {

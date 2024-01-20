@@ -39,10 +39,10 @@ struct BoardView: View {
     
     var body: some View {
         VStack {
-            ForEach(0..<4) { rowIdx in
+            ForEach(viewModel.tiles, id: \.self) { row in
                 HStack {
-                    ForEach(0..<4) { colIdx in
-                        TileView(tile: viewModel.tiles[(rowIdx * 4 + colIdx)])
+                    ForEach(row) { tile in
+                        TileView(tile: tile)
                     }
                 }
                 .padding(ViewConstants.rowPadding)
