@@ -99,15 +99,9 @@ struct BoardModel {
     }
     
     /// Represents a tile element in the board.
-    struct Tile: Identifiable, CustomStringConvertible {
+    struct Tile: Identifiable {
         var id = UUID()
         var value = 0
-        
-        /// The string representation of the tile using its value raised to a power of 2.
-        public var description : String {
-            let displayVal = value == 0 ? "" : (1 << value).description
-            return displayVal
-        }
     }
 
     /// The direction in which the board is collapsed.

@@ -11,9 +11,10 @@ import Foundation
 class BoardViewModel: ObservableObject {
     @Published private var model = BoardModel()
     var isSwiping = false
+    let dimension: Int = 4
     
-    var tiles: [BoardModel.Tile] {
-        return model.tiles.reduce([], +)
+    var tiles: [TileViewModel] {
+        return model.tiles.reduce([], +).map { .init($0) }
     }
     
     func collapse(direction: BoardModel.CollapseDirection) {

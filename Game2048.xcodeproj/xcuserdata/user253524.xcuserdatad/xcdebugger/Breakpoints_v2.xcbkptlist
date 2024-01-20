@@ -7,33 +7,64 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "D39F6D0C-46E2-4FB4-A527-93D200D16EF0"
+            uuid = "AADE5071-8994-4D85-BD90-B6EFADA6502D"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Game2048/Models/Data/BoardModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "84"
-            endingLineNumber = "84"
+            startingLineNumber = "92"
+            endingLineNumber = "92"
             landmarkName = "collapse(_:)"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "091B2C68-8ABA-4BAD-AAAE-E8BF45F00D65"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Game2048/Views/ContentView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "21"
-            endingLineNumber = "21"
-            landmarkName = "boardSwipe"
-            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "AADE5071-8994-4D85-BD90-B6EFADA6502D - 6a5d863cb2b88010"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Game2048.BoardModel.collapse(Game2048.BoardModel.CollapseDirection) -&gt; ()"
+                  moduleName = "Game2048"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user253524/Documents/Game2048/Game2048/Models/Data/BoardModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "92"
+                  endingLineNumber = "92"
+                  offsetFromSymbolStart = "572">
+               </Location>
+               <Location
+                  uuid = "AADE5071-8994-4D85-BD90-B6EFADA6502D - a98a57604eab10ca"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Game2048.BoardModel.Tile) -&gt; Swift.Int in Game2048.BoardModel.collapse(Game2048.BoardModel.CollapseDirection) -&gt; ()"
+                  moduleName = "Game2048"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user253524/Documents/Game2048/Game2048/Models/Data/BoardModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "92"
+                  endingLineNumber = "92"
+                  offsetFromSymbolStart = "36">
+               </Location>
+               <Location
+                  uuid = "AADE5071-8994-4D85-BD90-B6EFADA6502D - de05cfcefce266c9"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Game2048.BoardModel.Tile) -&gt; Swift.Int in Game2048.BoardModel.collapse(Game2048.BoardModel.CollapseDirection) -&gt; ()"
+                  moduleName = "Game2048"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user253524/Documents/Game2048/Game2048/Models/Data/BoardModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "92"
+                  endingLineNumber = "92"
+                  offsetFromSymbolStart = "36">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
