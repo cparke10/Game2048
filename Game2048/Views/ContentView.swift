@@ -44,7 +44,7 @@ struct ContentView: View {
                 }
                 .frame(width: 300, height: 300)
                 .padding(8)
-                .background(Color.gray)
+                .background(Color.gray.cornerRadius(10))
                 .gesture(boardSwipe)
             Spacer()
         }
@@ -54,9 +54,6 @@ struct ContentView: View {
 struct TileView: View {
     private let tile: TileViewModel
     private let cornerRadius: CGFloat = 4
-    
-    @State private var isExpanding = false
-    @State private var isShrinking = false
     
     /// The color associated with the tile as driven by its value.
     private var color: Color {
