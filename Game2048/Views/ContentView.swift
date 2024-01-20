@@ -40,44 +40,44 @@ struct ContentView: View {
     }
     
     var body: some View {
-        VStack {
-            Spacer().frame(height: ViewConstants.headerSpacerHeight)
+        NavigationView {
             VStack {
-                ForEach(0..<viewModel.dimension) { rowIdx in
+                Spacer().frame(height: ViewConstants.headerSpacerHeight)
+                VStack {
+                    ForEach(0..<viewModel.dimension) { rowIdx in
+                        HStack {
+                            ForEach(0..<viewModel.dimension) { colIdx in
+                                TileView(tile: viewModel.tiles[(rowIdx * viewModel.dimension + colIdx)])
+                            }
+                        }
+                        .padding(ViewConstants.rowPadding)
+                    }
+                }
+                .frame(width: ViewConstants.boardSize, height: ViewConstants.boardSize)
+                .padding(ViewConstants.boardPadding)
+                .background(Color.gray.cornerRadius(ViewConstants.boardCornerRadius))
+                .gesture(boardSwipe)
+                Spacer()
+                ZStack {
                     HStack {
-                        ForEach(0..<viewModel.dimension) { colIdx in
-                            TileView(tile: viewModel.tiles[(rowIdx * viewModel.dimension + colIdx)])
+                        NavigationLink(destination: ContentView(viewModel: .init())) {
+                            Text("Leaderboard")
+                                .font(.system(size: 18))
+                                .frame(maxWidth: .infinity)
+                                .padding()
+                                .background(
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .stroke(Color.blue, lineWidth: 2)
+                                        .fill(Color.white)
+                                )
                         }
                     }
-                    .padding(ViewConstants.rowPadding)
                 }
+                .frame(maxWidth: .infinity)
+                .padding()
+                .overlay(Divider().background(Color.blue), alignment: .top)
+                .background(ViewConstants.leaderBoardStickyButtonBackgroundColor)
             }
-            .frame(width: ViewConstants.boardSize, height: ViewConstants.boardSize)
-            .padding(ViewConstants.boardPadding)
-            .background(Color.gray.cornerRadius(ViewConstants.boardCornerRadius))
-            .gesture(boardSwipe)
-            Spacer()
-            ZStack {
-                HStack {
-                    Button(action: {
-                        print()
-                    }) {
-                        Text("Leaderboard")
-                            .font(.system(size: 18))
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(
-                                RoundedRectangle(cornerRadius: 12)
-                                    .stroke(Color.blue, lineWidth: 2)
-                                    .fill(Color.white)
-                            )
-                    }
-                }
-            }
-            .frame(maxWidth: .infinity)
-            .padding()
-            .overlay(Divider().background(Color.blue), alignment: .top)
-            .background(ViewConstants.leaderBoardStickyButtonBackgroundColor)
         }
     }
 }
