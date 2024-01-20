@@ -59,18 +59,18 @@ struct TileView: View {
     private var color: Color {
         let color: Color
         switch tile.value {
-        case 0: color = Color(red: 204/256, green: 192/256, blue: 179.0/256)
-        case 1: color = Color(red: 238/256, green: 228/256, blue: 218.0/256)
-        case 2: color = Color(red: 237/256, green: 224/256, blue: 200/256)
-        case 3: color = Color(red: 242/256, green: 177/256, blue: 121/256)
-        case 4: color = Color(red: 245/256, green: 149/256, blue: 99/256)
-        case 5: color = Color(red: 246/256, green: 124/256, blue: 95/256)
-        case 6: color = Color(red: 246/256, green: 94/256, blue: 59/256)
-        case 7: color = Color(red: 237/256, green: 207/256, blue: 114/256)
-        case 8: color = Color(red: 237/256, green: 204/256, blue: 97/256)
-        case 9: color = Color(red: 237/256, green: 200/256, blue: 80/256)
-        case 10: color = Color(red: 237/256, green: 197/256, blue: 63/256)
-        case 11: color = Color(red: 237/256, green: 194/256, blue: 46/256)
+        case 0: color = Color(red: 204/255, green: 192/255, blue: 179/255)
+        case 1: color = Color(red: 238/255, green: 228/255, blue: 218/255)
+        case 2: color = Color(red: 237/255, green: 224/255, blue: 200/255)
+        case 3: color = Color(red: 242/255, green: 177/255, blue: 121/255)
+        case 4: color = Color(red: 245/255, green: 149/255, blue: 99/255)
+        case 5: color = Color(red: 246/255, green: 124/255, blue: 95/255)
+        case 6: color = Color(red: 246/255, green: 94/255, blue: 59/255)
+        case 7: color = Color(red: 237/255, green: 207/255, blue: 114/255)
+        case 8: color = Color(red: 237/255, green: 204/255, blue: 97/255)
+        case 9: color = Color(red: 237/255, green: 200/255, blue: 80/255)
+        case 10: color = Color(red: 237/255, green: 197/255, blue: 63/255)
+        case 11: color = Color(red: 237/255, green: 194/255, blue: 46/255)
         default: color = .clear
         }
         
