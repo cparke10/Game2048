@@ -17,7 +17,7 @@ struct BoardModel {
         tiles = range.map { _ in
             range.map { _ in Tile() }
         }
-        
+    
         spawnTile()
         spawnTile()
     }
@@ -29,11 +29,11 @@ struct BoardModel {
         if let targetTile = emptyTiles.randomElement() {
             for (rowIdx, row) in tiles.enumerated() {
                 if let targetIdx = row.firstIndex(where: { $0.id == targetTile.id }) {
-                    tiles[rowIdx][targetIdx].value = 1
+                    // set the random tile to either 1 or 2 value, with bias towards 1
+                    tiles[rowIdx][targetIdx].value = (Int.random(in: 0...5) % 5 == 0) ? 2 : 1
                 }
             }
         }
-        
     }
     
     /// Performs an array collapse on a single array of tiles.
@@ -41,41 +41,37 @@ struct BoardModel {
     ///   - tiles: The tile array to collapse.
     ///   - isLeft: Describes whether or not the tiles should be collapsed towards the 0 index or towards the end index.
     /// - Returns: The collapsed tile array.
-    mutating private func collapseArr(_ tiles: [Tile], isLeft: Bool) -> [Tile] {
-        var result: [Tile] = []
+    mutating private func collapseArray(_ tiles: [Tile], isLeft: Bool) -> [Tile] {
         var strippedTiles = tiles.filter { $0.value != 0 } // reduce input array to non-zero values
         
-        // for right collapses, reverse strippedArr to enforce right merging behavior in below loop
+        // for right collapses, reverse strippedArr to enforce right merging behavior in below pairing check
         strippedTiles = isLeft ? strippedTiles : strippedTiles.reversed()
+        guard !strippedTiles.isEmpty else { return tiles }
         
-        var shouldSkipPair = false // control flow Bool for below loop
-        for (idx, currTile) in strippedTiles.enumerated() {
-            // currTile was merged the previous iteration; skip this iteration
-            if shouldSkipPair {
-                shouldSkipPair = false
-                continue
-            }
+        // combine tiles
+        let finalIndex = strippedTiles.count - 1
+        let pairedTiles = zip(strippedTiles, strippedTiles.suffix(finalIndex)).map { $0.0.value == $0.1.value }
+        var shouldSkipPair = false
+        let combinedTiles: [Tile] = strippedTiles.enumerated().compactMap { (index, tile) in
+            guard !shouldSkipPair else { shouldSkipPair.toggle(); return nil }
             
-            // if the current element is the last element of the stripped row or
-            // is not match with the next tile
-            if idx == strippedTiles.count-1 || currTile.value != strippedTiles[idx+1].value {
-                result.append(currTile)
-            } else { // tiles are matched
-                let newTile = Tile(id: currTile.id, value: currTile.value + 1)
-                result.append(newTile)
-                shouldSkipPair = true
+            // if the tile is paired with its successor and a pair exists (false in cases: a. array of size one, or b. final tile case), 
+            // then increment its value
+            if pairedTiles.indices.contains(index), pairedTiles[index] {
+                shouldSkipPair = true // ensure next pair is not processed because the nextTile will already be combined
+                return Tile(id: tile.id, value: tile.value + 1)
+            } else {
+                return tile
             }
         }
         
-        // construct pad array
-        var zeroPad: [Tile] = []
-        for _ in 0..<(dimension-result.count) {
-            zeroPad.append(Tile())
-        }
+        // re-add zero padding after filtering them out above
+        func createNewTile() -> Tile { Tile() } // ensure to create a unique tile in the repeating call below
+        let zeroPad = Array(repeating: createNewTile, count: dimension - combinedTiles.count).map { $0() }
         
         // pad and return the result
         // for right swipes, pad the result on the left and undo the pre-merge reverse from above
-        return isLeft ? result + zeroPad : zeroPad + result.reversed()
+        return isLeft ? combinedTiles + zeroPad : zeroPad + combinedTiles.reversed()
     }
     
     /// Performs a collapse on the array, combining all equal-valued tiles according to the collpase direction.
@@ -86,7 +82,7 @@ struct BoardModel {
         let shouldMergeLeft = direction == .left || direction == .up
         
         var newBoard: [[Tile]] = []
-        for row in temporaryBoard { newBoard.append(collapseArr(row, isLeft: shouldMergeLeft)) }
+        for row in temporaryBoard { newBoard.append(collapseArray(row, isLeft: shouldMergeLeft)) }
 
         // if the collapse modified the values of the board, proceed to next game state (collapsed board + new tile)
         if (tiles.flattend.map { $0.value } != newBoard.flattend.map { $0.value }) {
@@ -95,6 +91,7 @@ struct BoardModel {
 
             tiles = newBoard // update board
             spawnTile()
+            print()
         }
     }
     
