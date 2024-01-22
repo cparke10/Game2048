@@ -8,10 +8,11 @@
 
 import Foundation
 
+/// The model for the board. Manages the game engine of the application.
 struct BoardModel {
     var dimension = 4
-    var tiles: [[Tile]]
-    var spawnedTile: Tile?
+    var tiles: [[TileModel]]
+    var spawnedTile: TileModel?
     var score: Int = 0
     
     /// Describes if the game is over based on available user moves.
@@ -20,7 +21,7 @@ struct BoardModel {
     init() {
         let range = 0..<dimension
         tiles = range.map { _ in
-            range.map { _ in Tile() }
+            range.map { _ in TileModel() }
         }
     
         spawnTile()
@@ -41,7 +42,7 @@ struct BoardModel {
     ///   - tiles: The tile array to collapse.
     ///   - isLeft: Describes whether or not the tiles should be collapsed towards the 0 index or towards the end index.
     /// - Returns: The collapsed tile array.
-    mutating private func collapseArray(_ tiles: [Tile], isLeft: Bool) -> [Tile] {
+    mutating private func collapseArray(_ tiles: [TileModel], isLeft: Bool) -> [TileModel] {
         // for right collapses, reverse the stripped array to enforce right merging behavior in below pairing check
         let strippedTiles = isLeft ? tiles.stripped : tiles.stripped.reversed()
         guard !strippedTiles.isEmpty else { return tiles }
@@ -50,7 +51,7 @@ struct BoardModel {
         // TODO: Refactor with reduce
         let pairedTiles = strippedTiles.pairs
         var shouldSkipPair = false
-        let combinedTiles: [Tile] = strippedTiles.enumerated().compactMap { (index, tile) in
+        let combinedTiles: [TileModel] = strippedTiles.enumerated().compactMap { (index, tile) in
             guard !shouldSkipPair else { shouldSkipPair = false; return nil }
             
             // if the tile is paired with its successor and a pair exists (false in cases: a. array of size one, or b. final tile case), 
@@ -65,7 +66,7 @@ struct BoardModel {
         }
         
         // re-add zero padding after filtering them out above
-        func createNewTile() -> Tile { Tile() }
+        func createNewTile() -> TileModel { TileModel() }
         let zeroPad = Array(repeating: createNewTile, count: dimension - combinedTiles.count).map { $0() }
         
         // pad and return the result
@@ -82,7 +83,7 @@ struct BoardModel {
         let temporaryBoard = isCollapseVertical ? tiles.transposed : tiles
         let shouldMergeLeft = direction == .left || direction == .up
         
-        var newBoard: [[Tile]] = []
+        var newBoard: [[TileModel]] = []
         for row in temporaryBoard { newBoard.append(collapseArray(row, isLeft: shouldMergeLeft)) }
 
         // if the collapse modified the values of the board, proceed to next game state (collapsed board + new tile)
@@ -92,18 +93,6 @@ struct BoardModel {
 
             tiles = newBoard // update board
             spawnTile()
-        }
-    }
-    
-    /// Represents a tile element in the board.
-    class Tile: Equatable {
-        var value = 0
-        
-        /// Increase the value of the tile by one.
-        func increment() { value += 1 }
-        
-        static func ==(lhs: Tile, rhs: Tile) -> Bool {
-            return lhs.value == rhs.value
         }
     }
 
@@ -124,7 +113,7 @@ struct BoardModel {
     }
 }
 
-fileprivate extension Array where Element == BoardModel.Tile {
+fileprivate extension Array where Element == TileModel {
     /// Returns an array of tiles without 0-valued tiles.
     var stripped: [Element] { filter { $0.value > 0 } }
     
@@ -137,7 +126,7 @@ fileprivate extension Array where Element == BoardModel.Tile {
     }
 }
 
-fileprivate extension Array where Element == [BoardModel.Tile] {
+fileprivate extension Array where Element == [TileModel] {
     // MARK: General helper methods
     /// Returns the transposed matrix.
     var transposed: [Element] {
@@ -149,7 +138,7 @@ fileprivate extension Array where Element == [BoardModel.Tile] {
     }
     
     /// Returns an array of all joined subarrays. Useful for simplifying basic checks against the tile values in the matrix.
-    var flattened: [BoardModel.Tile] { reduce([], +) }
+    var flattened: [TileModel] { reduce([], +) }
     
     // MARK: Game flow helper methods
     /// Describes if the matrix has a pair of collapsible tiles on either the horitzontal and vertical axis.
