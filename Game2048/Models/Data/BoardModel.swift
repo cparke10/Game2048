@@ -10,7 +10,13 @@ import Foundation
 
 struct BoardModel {
     var dimension = 4
-    var tiles : [[Tile]]
+    var tiles: [[Tile]]
+    
+    /// Indicates if the board is in a finished game state. This occurs when there are no more possible moves, under either of the two cases:
+    ///  - No 
+    var isGameOver: Bool {
+        return tiles.hasPair && tiles.flattened.map { $0.value }.contains(0)
+    }
     
     init() {
         let range = 0..<dimension
@@ -24,7 +30,7 @@ struct BoardModel {
     
     /// Increments a random 0-valued tile. If none exist, this has no effect.
     mutating private func spawnTile() {
-        let emptyTiles = tiles.flattend.filter { $0.value == 0 }
+        let emptyTiles = tiles.flattened.filter { $0.value == 0 }
         
         if let targetTile = emptyTiles.randomElement() {
             for (rowIdx, row) in tiles.enumerated() {
@@ -49,8 +55,7 @@ struct BoardModel {
         guard !strippedTiles.isEmpty else { return tiles }
         
         // combine tiles
-        let finalIndex = strippedTiles.count - 1
-        let pairedTiles = zip(strippedTiles, strippedTiles.suffix(finalIndex)).map { $0.0.value == $0.1.value }
+        let pairedTiles = tiles.pairs
         var shouldSkipPair = false
         let combinedTiles: [Tile] = strippedTiles.enumerated().compactMap { (index, tile) in
             guard !shouldSkipPair else { shouldSkipPair.toggle(); return nil }
@@ -66,7 +71,7 @@ struct BoardModel {
         }
         
         // re-add zero padding after filtering them out above
-        func createNewTile() -> Tile { Tile() } // ensure to create a unique tile in the repeating call below
+        func createNewTile() -> Tile { Tile() }
         let zeroPad = Array(repeating: createNewTile, count: dimension - combinedTiles.count).map { $0() }
         
         // pad and return the result
@@ -85,20 +90,23 @@ struct BoardModel {
         for row in temporaryBoard { newBoard.append(collapseArray(row, isLeft: shouldMergeLeft)) }
 
         // if the collapse modified the values of the board, proceed to next game state (collapsed board + new tile)
-        if (tiles.flattend.map { $0.value } != newBoard.flattend.map { $0.value }) {
+        if tiles != newBoard {
             // undo transpose, if performed above
             if isCollapseVertical { newBoard = newBoard.transposed }
 
             tiles = newBoard // update board
             spawnTile()
-            print()
         }
     }
     
     /// Represents a tile element in the board.
-    struct Tile: Identifiable {
+    struct Tile: Identifiable, Equatable {
         var id = UUID()
         var value = 0
+        
+        static func ==(lhs: Tile, rhs: Tile) -> Bool {
+            return lhs.value == rhs.value
+        }
     }
 
     /// The direction in which the board is collapsed.
@@ -118,6 +126,17 @@ struct BoardModel {
     }
 }
 
+fileprivate extension Array where Element == BoardModel.Tile {
+    var pairs: [Bool] {
+        let strippedTiles = filter { $0.value > 0 }
+        return zip(strippedTiles, strippedTiles.suffix(count - 1)).map { $0.0.value == $0.1.value }
+    }
+    
+    var hasPair: Bool {
+        pairs.contains(true)
+    }
+}
+
 fileprivate extension Array where Element == [BoardModel.Tile] {
     /// Returns the transposed matrix.
     var transposed: [[BoardModel.Tile]] {
@@ -128,6 +147,10 @@ fileprivate extension Array where Element == [BoardModel.Tile] {
         }
     }
     
+    var hasPair: Bool {
+        map { $0.hasPair }.contains(true)
+    }
+    
     /// Returns an array of all joined subarrays.
-    var flattend: [BoardModel.Tile] { reduce([], +) }
+    var flattened: [BoardModel.Tile] { reduce([], +) }
 }
