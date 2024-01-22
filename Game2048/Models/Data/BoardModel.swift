@@ -2,8 +2,8 @@
 //  BoardModel.swift
 //  2048_Dev
 //
-//  Created by user923968 on 7/14/20.
-//  Copyright © 2020 user923968. All rights reserved.
+//  Created by Charlie Parker on 7/14/20.
+//  Copyright © 2020 Charlie Parker. All rights reserved.
 //
 
 import Foundation
@@ -12,11 +12,8 @@ struct BoardModel {
     var dimension = 4
     var tiles: [[Tile]]
     
-    /// Indicates if the board is in a finished game state. This occurs when there are no more possible moves, under either of the two cases:
-    ///  - No 
-    var isGameOver: Bool {
-        return tiles.hasPair && tiles.flattened.map { $0.value }.contains(0)
-    }
+    /// Describes if the game is over based on available user moves.
+    var isGameOver: Bool { !tiles.hasMove }
     
     init() {
         let range = 0..<dimension
@@ -36,7 +33,7 @@ struct BoardModel {
             for (rowIdx, row) in tiles.enumerated() {
                 if let targetIdx = row.firstIndex(where: { $0.id == targetTile.id }) {
                     // set the random tile to either 1 or 2 value, with bias towards 1
-                    tiles[rowIdx][targetIdx].value = (Int.random(in: 0...5) % 5 == 0) ? 2 : 1
+                    tiles[rowIdx][targetIdx].value = (Int.random(in: 1...8) % 8 == 0) ? 2 : 1
                 }
             }
         }
@@ -48,22 +45,21 @@ struct BoardModel {
     ///   - isLeft: Describes whether or not the tiles should be collapsed towards the 0 index or towards the end index.
     /// - Returns: The collapsed tile array.
     mutating private func collapseArray(_ tiles: [Tile], isLeft: Bool) -> [Tile] {
-        var strippedTiles = tiles.filter { $0.value != 0 } // reduce input array to non-zero values
-        
-        // for right collapses, reverse strippedArr to enforce right merging behavior in below pairing check
-        strippedTiles = isLeft ? strippedTiles : strippedTiles.reversed()
+        // for right collapses, reverse the stripped array to enforce right merging behavior in below pairing check
+        let strippedTiles = isLeft ? tiles.stripped : tiles.stripped.reversed()
         guard !strippedTiles.isEmpty else { return tiles }
         
-        // combine tiles
-        let pairedTiles = tiles.pairs
+        // merge tiles
+        // TODO: Refactor with reduce
+        let pairedTiles = strippedTiles.pairs
         var shouldSkipPair = false
         let combinedTiles: [Tile] = strippedTiles.enumerated().compactMap { (index, tile) in
-            guard !shouldSkipPair else { shouldSkipPair.toggle(); return nil }
+            guard !shouldSkipPair else { shouldSkipPair = false; return nil }
             
             // if the tile is paired with its successor and a pair exists (false in cases: a. array of size one, or b. final tile case), 
             // then increment its value
             if pairedTiles.indices.contains(index), pairedTiles[index] {
-                shouldSkipPair = true // ensure next pair is not processed because the nextTile will already be combined
+                shouldSkipPair = true // ensure next pair is not processed because the nextTile will already be merged
                 return Tile(id: tile.id, value: tile.value + 1)
             } else {
                 return tile
@@ -127,19 +123,22 @@ struct BoardModel {
 }
 
 fileprivate extension Array where Element == BoardModel.Tile {
-    var pairs: [Bool] {
-        let strippedTiles = filter { $0.value > 0 }
-        return zip(strippedTiles, strippedTiles.suffix(count - 1)).map { $0.0.value == $0.1.value }
-    }
+    /// Returns an array of tiles without 0-valued tiles.
+    var stripped: [Element] { filter { $0.value > 0 } }
     
-    var hasPair: Bool {
-        pairs.contains(true)
+    /// Returns an array of booleans representing the tile relationships.
+    var pairs: [Bool] {
+        let stripped = stripped
+        guard !stripped.isEmpty else { return [] }
+        
+        return zip(stripped, stripped.suffix(stripped.count - 1)).map { $0.0.value == $0.1.value }
     }
 }
 
 fileprivate extension Array where Element == [BoardModel.Tile] {
+    // MARK: General helper methods
     /// Returns the transposed matrix.
-    var transposed: [[BoardModel.Tile]] {
+    var transposed: [Element] {
         (0..<count).map { rowIndex in
             (0..<count).map { columnIndex in
                 self[columnIndex][rowIndex]
@@ -147,10 +146,17 @@ fileprivate extension Array where Element == [BoardModel.Tile] {
         }
     }
     
-    var hasPair: Bool {
-        map { $0.hasPair }.contains(true)
+    /// Returns an array of all joined subarrays. Useful for simplifying basic checks against the tile values in the matrix.
+    var flattened: [BoardModel.Tile] { reduce([], +) }
+    
+    // MARK: Game flow helper methods
+    /// Describes if the matrix has a pair of collapsible tiles on either the horitzontal and vertical axis.
+    private var hasPair: Bool {
+        func matrixHasPair(_ matrix: [Element]) -> Bool { matrix.map { $0.pairs.contains(true) }.contains(true) }
+        
+        return matrixHasPair(self) || matrixHasPair(transposed)
     }
     
-    /// Returns an array of all joined subarrays.
-    var flattened: [BoardModel.Tile] { reduce([], +) }
+    /// Describes if the matrix has an available game move, i.e., there is a collapsible pair on either of the axises or there is a 0-valued tile.
+    var hasMove: Bool { hasPair || flattened.contains(where: { $0.value == 0 }) }
 }

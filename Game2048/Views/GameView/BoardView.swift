@@ -2,7 +2,7 @@
 //  BoardView.swift
 //  Game2048
 //
-//  Created by user253524 on 1/19/24.
+//  Created by Charlie Parker on 1/19/24.
 //
 
 import SwiftUI
@@ -10,6 +10,9 @@ import SwiftUI
 /// The view used to represent the game board.
 struct BoardView: View {
     @ObservedObject var viewModel: BoardViewModel = .init()
+    @State var isGameOver: Bool = false
+    private let gameOverTitleString = NSLocalizedString("Game Over!", comment: "Game over alert title content")
+    private let okString = NSLocalizedString("OK", comment: "OK alert button content")
     
     /// Container for the constants used in the view
     private struct ViewConstants {
@@ -33,7 +36,9 @@ struct BoardView: View {
                     currSwipe = yDelta < 0 ? .up : .down
                 }
                 
-                viewModel.collapse(direction: currSwipe)
+                withAnimation(.snappy) {
+                    viewModel.collapse(direction: currSwipe)
+                }
             }
     }
     
@@ -41,8 +46,8 @@ struct BoardView: View {
         VStack {
             ForEach(viewModel.tileViewModels, id: \.self) { row in
                 HStack {
-                    ForEach(row) { tile in
-                        TileView(tile: tile)
+                    ForEach(row) { tileViewModel in
+                        TileView(viewModel: tileViewModel)
                     }
                 }
                 .padding(ViewConstants.rowPadding)
@@ -52,17 +57,23 @@ struct BoardView: View {
         .padding(ViewConstants.boardPadding)
         .background(Color.gray.cornerRadius(ViewConstants.boardCornerRadius))
         .gesture(boardSwipe)
+        .alert(gameOverTitleString, isPresented: Binding<Bool>(
+            get: { viewModel.isPresentingGameOverAlert },
+            set: { _ in viewModel.isPresentingGameOverAlert = false }
+        )) {
+            Button(okString, role: .cancel) { }
+        }
     }
     
     /// The view used to represent a tile within the game board.
     private struct TileView: View {
-        private let tile: TileViewModel
+        private let viewModel: TileViewModel
         private let cornerRadius: CGFloat = 4
         
         /// The color associated with the tile as driven by its value.
         private var color: Color {
             let color: Color
-            switch tile.value {
+            switch viewModel.value {
             case 0: color = Color(red: 204/255, green: 192/255, blue: 179/255)
             case 1: color = Color(red: 238/255, green: 228/255, blue: 218/255)
             case 2: color = Color(red: 237/255, green: 224/255, blue: 200/255)
@@ -81,12 +92,12 @@ struct BoardView: View {
             return color
         }
         
-        init(tile: TileViewModel) { self.tile = tile }
+        init(viewModel: TileViewModel) { self.viewModel = viewModel }
         
         var body: some View {
             ZStack {
                 RoundedRectangle(cornerRadius: cornerRadius).fill(color)
-                Text(tile.description)
+                Text(viewModel.description)
                     .foregroundColor(Color.black).font(.title)
             }
         }

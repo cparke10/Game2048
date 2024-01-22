@@ -14,6 +14,7 @@
 		7372A0052B5B1952007648B2 /* BoardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7372A0022B5B18E4007648B2 /* BoardModel.swift */; };
 		7372A0062B5B1956007648B2 /* BoardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7372A0042B5B18F9007648B2 /* BoardViewModel.swift */; };
 		7372A0082B5B460E007648B2 /* TileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7372A0072B5B460E007648B2 /* TileViewModel.swift */; };
+		738F21D42B5E30A400EB4C1B /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738F21D32B5E30A400EB4C1B /* StatsView.swift */; };
 		73EEABCB2B5B7BC1005149C2 /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73EEABCA2B5B7BC1005149C2 /* BoardView.swift */; };
 		73EEABCD2B5B7DFF005149C2 /* LeaderboardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73EEABCC2B5B7DFF005149C2 /* LeaderboardButton.swift */; };
 /* End PBXBuildFile section */
@@ -28,6 +29,7 @@
 		7372A0022B5B18E4007648B2 /* BoardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardModel.swift; sourceTree = "<group>"; };
 		7372A0042B5B18F9007648B2 /* BoardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardViewModel.swift; sourceTree = "<group>"; };
 		7372A0072B5B460E007648B2 /* TileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileViewModel.swift; sourceTree = "<group>"; };
+		738F21D32B5E30A400EB4C1B /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
 		73EEABCA2B5B7BC1005149C2 /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
 		73EEABCC2B5B7DFF005149C2 /* LeaderboardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -120,6 +122,7 @@
 			children = (
 				73EEABCA2B5B7BC1005149C2 /* BoardView.swift */,
 				73EEABCC2B5B7DFF005149C2 /* LeaderboardButton.swift */,
+				738F21D32B5E30A400EB4C1B /* StatsView.swift */,
 			);
 			path = GameView;
 			sourceTree = "<group>";
@@ -198,6 +201,7 @@
 				73EEABCD2B5B7DFF005149C2 /* LeaderboardButton.swift in Sources */,
 				73729FED2B5B0954007648B2 /* LandingPage.swift in Sources */,
 				73729FEB2B5B0954007648B2 /* Game2048App.swift in Sources */,
+				738F21D42B5E30A400EB4C1B /* StatsView.swift in Sources */,
 				73EEABCB2B5B7BC1005149C2 /* BoardView.swift in Sources */,
 				7372A0062B5B1956007648B2 /* BoardViewModel.swift in Sources */,
 				7372A0082B5B460E007648B2 /* TileViewModel.swift in Sources */,
