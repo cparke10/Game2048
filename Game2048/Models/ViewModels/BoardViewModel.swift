@@ -10,8 +10,14 @@ import Foundation
 
 /// The view model for the board. Holds the board and tracks the game over alert boolean to use in the SwiftUI `alert` API.
 class BoardViewModel: ObservableObject {
-    @Published private var model = BoardModel()
+    @Published private var model: BoardModel
     @Published var isPresentingGameOverAlert = false
+    @Published var score = 0
+    
+    init(_ model: BoardModel = BoardModel()) {
+        self.model = model
+        self.score = model.score
+    }
     
     /// The tile view models in the board model.
     var tileViewModels: [[TileViewModel]] {
@@ -21,8 +27,9 @@ class BoardViewModel: ObservableObject {
     /// Performs the collapse on the board model.
     func collapse(direction: BoardModel.CollapseDirection) {
         model.collapse(direction)
+        score = model.score
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(750)) { [weak self] in
-            self?.isPresentingGameOverAlert = self?.model.isCollapsible == true
+            self?.isPresentingGameOverAlert = self?.model.isCollapsible == false
         }
     }
 }

@@ -18,8 +18,5 @@ struct TileViewModel: Identifiable, Hashable {
 
 extension TileViewModel: CustomStringConvertible {
     /// The string representation of the tile using its value raised to a power of 2.
-    public var description : String {
-        let displayVal = value == 0 ? "" : (1 << value).description
-        return displayVal
-    }
+    public var description : String { value == 0 ? "" : (1 << value).description }
 }

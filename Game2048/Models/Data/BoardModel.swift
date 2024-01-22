@@ -11,9 +11,10 @@ import Foundation
 struct BoardModel {
     var dimension = 4
     var tiles: [[Tile]]
+    var score: Int = 0
     
     /// Describes if the game is over based on available user moves.
-    var isCollapsible: Bool { !tiles.hasMove }
+    var isCollapsible: Bool { tiles.hasMove }
     
     init() {
         let range = 0..<dimension
@@ -29,14 +30,7 @@ struct BoardModel {
     mutating private func spawnTile() {
         let emptyTiles = tiles.flattened.filter { $0.value == 0 }
         
-        if let targetTile = emptyTiles.randomElement() {
-            for (rowIdx, row) in tiles.enumerated() {
-                if let targetIdx = row.firstIndex(where: { $0.id == targetTile.id }) {
-                    // set the random tile to either 1 or 2 value, with bias towards 1
-                    tiles[rowIdx][targetIdx].value = (Int.random(in: 1...8) % 8 == 0) ? 2 : 1
-                }
-            }
-        }
+        emptyTiles.randomElement()?.increment()
     }
     
     /// Performs an array collapse on a single array of tiles.
@@ -60,7 +54,8 @@ struct BoardModel {
             // then increment its value
             if pairedTiles.indices.contains(index), pairedTiles[index] {
                 shouldSkipPair = true // ensure next pair is not processed because the nextTile will already be merged
-                return Tile(id: tile.id, value: tile.value + 1)
+                tile.increment()
+                return tile
             } else {
                 return tile
             }
@@ -98,9 +93,11 @@ struct BoardModel {
     }
     
     /// Represents a tile element in the board.
-    struct Tile: Identifiable, Equatable {
-        var id = UUID()
+    class Tile: Equatable {
         var value = 0
+        
+        /// Increase the value of the tile by one.
+        func increment() { value += 1 }
         
         static func ==(lhs: Tile, rhs: Tile) -> Bool {
             return lhs.value == rhs.value
@@ -133,7 +130,7 @@ fileprivate extension Array where Element == BoardModel.Tile {
         let stripped = stripped
         guard !stripped.isEmpty else { return [] }
         
-        return zip(stripped, stripped.suffix(stripped.count - 1)).map { $0.0.value == $0.1.value }
+        return zip(stripped, stripped.suffix(stripped.count - 1)).map { $0.0 == $0.1 }
     }
 }
 
