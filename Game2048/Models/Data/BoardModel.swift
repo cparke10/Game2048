@@ -13,7 +13,7 @@ struct BoardModel {
     var tiles: [[Tile]]
     
     /// Describes if the game is over based on available user moves.
-    var isGameOver: Bool { !tiles.hasMove }
+    var isCollapsible: Bool { !tiles.hasMove }
     
     init() {
         let range = 0..<dimension
@@ -78,6 +78,8 @@ struct BoardModel {
     /// Performs a collapse on the array, combining all equal-valued tiles according to the collpase direction.
     /// - Parameter direction: The direction in which the board should be collapsed.
     mutating func collapse(_ direction: CollapseDirection) {
+        guard isCollapsible else { return }
+        
         let isCollapseVertical =  direction.axis == .vertical
         let temporaryBoard = isCollapseVertical ? tiles.transposed : tiles
         let shouldMergeLeft = direction == .left || direction == .up
