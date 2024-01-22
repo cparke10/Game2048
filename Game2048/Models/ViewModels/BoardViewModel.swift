@@ -12,7 +12,7 @@ import Foundation
 class BoardViewModel: ObservableObject {
     @Published private var model: BoardModel
     @Published var isPresentingGameOverAlert = false
-    @Published var score = 0
+    var score = 0
     
     init(_ model: BoardModel = BoardModel()) {
         self.model = model
@@ -21,14 +21,14 @@ class BoardViewModel: ObservableObject {
     
     /// The tile view models in the board model.
     var tileViewModels: [[TileViewModel]] {
-        return model.tiles.map { row in row.map { TileViewModel($0.value) } }
+        return model.tiles.map { row in row.map { TileViewModel(value: $0.value, isSpawned: model.spawnedTile === $0) } }
     }
 
     /// Performs the collapse on the board model.
     func collapse(direction: BoardModel.CollapseDirection) {
         model.collapse(direction)
         score = model.score
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(750)) { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(250)) { [weak self] in
             self?.isPresentingGameOverAlert = self?.model.isCollapsible == false
         }
     }

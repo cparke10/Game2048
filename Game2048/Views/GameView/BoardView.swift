@@ -9,8 +9,8 @@ import SwiftUI
 
 /// The view used to represent the game board.
 struct BoardView: View {
-    @ObservedObject var viewModel: BoardViewModel
-    @State private var isGameOver: Bool = false
+    @ObservedObject var viewModel: BoardViewModel = .init()
+    @State private var spawnScale: Double = 1
     private let gameOverTitleString = NSLocalizedString("Game Over!", comment: "Game over alert title content")
     private let okString = NSLocalizedString("OK", comment: "OK alert button content")
     
@@ -20,7 +20,7 @@ struct BoardView: View {
         static let boardSize: CGFloat = 300
         static let boardPadding: CGFloat = 10
         static let boardCornerRadius: CGFloat = 10
-    }   
+    }
     
     /// The gesture which handles swipe actions on the board by updating the view model.
     private var boardSwipe: some Gesture {
@@ -36,9 +36,8 @@ struct BoardView: View {
                     currSwipe = yDelta < 0 ? .up : .down
                 }
                 
-                withAnimation(.snappy) {
-                    viewModel.collapse(direction: currSwipe)
-                }
+                
+                viewModel.collapse(direction: currSwipe)
             }
     }
     
@@ -52,6 +51,11 @@ struct BoardView: View {
                 }
                 .padding(ViewConstants.rowPadding)
             }
+            HStack {
+                Spacer()
+                HighScoreLabel(score: viewModel.score)
+                    .padding()
+            }
         }
         .frame(width: ViewConstants.boardSize, height: ViewConstants.boardSize)
         .padding(ViewConstants.boardPadding)
@@ -64,41 +68,4 @@ struct BoardView: View {
             Button(okString, role: .cancel) { }
         }
     }
-    
-    /// The view used to represent a tile within the game board.
-    private struct TileView: View {
-        private let viewModel: TileViewModel
-        private let cornerRadius: CGFloat = 4
-        
-        /// The color associated with the tile as driven by its value.
-        private var color: Color {
-            let color: Color
-            switch viewModel.value {
-            case 0: color = Color(red: 204/255, green: 192/255, blue: 179/255)
-            case 1: color = Color(red: 238/255, green: 228/255, blue: 218/255)
-            case 2: color = Color(red: 237/255, green: 224/255, blue: 200/255)
-            case 3: color = Color(red: 242/255, green: 177/255, blue: 121/255)
-            case 4: color = Color(red: 245/255, green: 149/255, blue: 99/255)
-            case 5: color = Color(red: 246/255, green: 124/255, blue: 95/255)
-            case 6: color = Color(red: 246/255, green: 94/255, blue: 59/255)
-            case 7: color = Color(red: 237/255, green: 207/255, blue: 114/255)
-            case 8: color = Color(red: 237/255, green: 204/255, blue: 97/255)
-            case 9: color = Color(red: 237/255, green: 200/255, blue: 80/255)
-            case 10: color = Color(red: 237/255, green: 197/255, blue: 63/255)
-            case 11: color = Color(red: 237/255, green: 194/255, blue: 46/255)
-            default: color = .red
-            }
-            
-            return color
-        }
-        
-        init(viewModel: TileViewModel) { self.viewModel = viewModel }
-        
-        var body: some View {
-            ZStack {
-                RoundedRectangle(cornerRadius: cornerRadius).fill(color)
-                Text(viewModel.description)
-                    .foregroundColor(Color.black).font(.title)
-            }
-        }
-    }}
+}

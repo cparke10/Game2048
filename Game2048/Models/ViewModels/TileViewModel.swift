@@ -8,12 +8,9 @@
 import Foundation
 
 struct TileViewModel: Identifiable, Hashable {
-    let value: Int
     let id = UUID()
-    
-    init(_ value: Int) {
-        self.value = value
-    }
+    let value: Int
+    let isSpawned: Bool
 }
 
 extension TileViewModel: CustomStringConvertible {

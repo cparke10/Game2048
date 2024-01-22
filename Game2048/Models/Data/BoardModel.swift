@@ -11,6 +11,7 @@ import Foundation
 struct BoardModel {
     var dimension = 4
     var tiles: [[Tile]]
+    var spawnedTile: Tile?
     var score: Int = 0
     
     /// Describes if the game is over based on available user moves.
@@ -30,7 +31,9 @@ struct BoardModel {
     mutating private func spawnTile() {
         let emptyTiles = tiles.flattened.filter { $0.value == 0 }
         
-        emptyTiles.randomElement()?.increment()
+        let targetTile = emptyTiles.randomElement()
+        spawnedTile = targetTile
+        targetTile?.increment()
     }
     
     /// Performs an array collapse on a single array of tiles.
