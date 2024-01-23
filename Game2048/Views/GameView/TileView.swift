@@ -10,6 +10,7 @@ import SwiftUI
 /// The view used to represent a tile within the game board.
 struct TileView: View {
     private let viewModel: TileViewModel
+    // TODO: containerize
     private static let cornerRadius: CGFloat = 4
     private static let spawnScaleAnimationDuration: Double = 0.2
     private static let postSpawnScale: Double = 1
