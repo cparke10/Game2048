@@ -10,16 +10,15 @@ import SwiftUI
 /// The view used to represent the game board.
 struct BoardView: View {
     @ObservedObject var viewModel: BoardViewModel = .init()
-    // TODO: containerize
-    private let gameOverTitleString = NSLocalizedString("Game Over!", comment: "Game over alert title content")
-    private let okString = NSLocalizedString("OK", comment: "OK alert button content")
-    
+
     /// Container for the constants used in the view
     private struct ViewConstants {
         static let rowPadding: CGFloat = 2
         static let boardSize: CGFloat = 300
         static let boardPadding: CGFloat = 10
         static let boardCornerRadius: CGFloat = 10
+        static let gameOverTitleString = NSLocalizedString("Game Over!", comment: "Game over alert title content")
+        static let okString = NSLocalizedString("OK", comment: "OK alert button content")
     }
     
     /// The gesture which handles swipe actions on the board by updating the view model.
@@ -56,11 +55,11 @@ struct BoardView: View {
             .frame(width: ViewConstants.boardSize, height: ViewConstants.boardSize)
             .padding(ViewConstants.boardPadding)
             .background(Color.gray.cornerRadius(ViewConstants.boardCornerRadius))
-            .alert(gameOverTitleString, isPresented: Binding<Bool>(
+            .alert(ViewConstants.gameOverTitleString, isPresented: Binding<Bool>(
                 get: { viewModel.isPresentingGameOverAlert },
                 set: { _ in viewModel.isPresentingGameOverAlert = false }
             )) {
-                Button(okString, role: .cancel) { }
+                Button(ViewConstants.okString, role: .cancel) { }
             }
             .gesture(boardSwipe)
             Spacer()

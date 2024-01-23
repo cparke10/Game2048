@@ -94,6 +94,8 @@ struct BoardModel {
 
             tiles = newBoard // update board
             spawnTile()
+        } else {
+            spawnedTile = nil
         }
     }
 
