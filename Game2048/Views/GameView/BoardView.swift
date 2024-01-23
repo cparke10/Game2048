@@ -10,6 +10,7 @@ import SwiftUI
 /// The view used to represent the game board.
 struct BoardView: View {
     @ObservedObject var viewModel: BoardViewModel = .init()
+    // TODO: containerize
     private let gameOverTitleString = NSLocalizedString("Game Over!", comment: "Game over alert title content")
     private let okString = NSLocalizedString("OK", comment: "OK alert button content")
     
