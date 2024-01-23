@@ -22,7 +22,7 @@ struct LeaderboardButton: View {
     var body: some View {
         ZStack {
             HStack {
-                NavigationLink(destination: LandingPage()) {
+                NavigationLink(destination: LeaderboardTabView()) {
                     Text(ViewConstants.buttonTitleString)
                         .font(.system(size: ViewConstants.buttonTitleFontSize))
                         .frame(maxWidth: .infinity)
