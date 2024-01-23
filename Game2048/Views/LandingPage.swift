@@ -12,7 +12,7 @@ struct LandingPage: View {
     static let headerSpacerHeight: CGFloat = 30
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack {
                 Spacer().frame(height: Self.headerSpacerHeight)
                 BoardView()

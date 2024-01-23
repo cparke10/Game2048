@@ -13,7 +13,7 @@ struct BoardModel {
     var dimension = 4
     var tiles: [[TileModel]]
     var spawnedTile: TileModel?
-    var score: Int = 0
+    var score = 0
     
     /// Describes if the game is over based on available user moves.
     var isCollapsible: Bool { tiles.hasMove }
@@ -33,8 +33,9 @@ struct BoardModel {
         let emptyTiles = tiles.flattened.filter { $0.value == 0 }
         
         let targetTile = emptyTiles.randomElement()
+        let amount: Int = ((1...8).randomElement()! % 8) == 0 ? 2 : 1 // increment by 1 or 2 with low probability
+        targetTile?.increment(by: amount)
         spawnedTile = targetTile
-        targetTile?.increment()
     }
     
     /// Performs an array collapse on a single array of tiles.
@@ -58,6 +59,7 @@ struct BoardModel {
             if pairedTiles.indices.contains(index), pairedTiles[index] {
                 shouldSkipPair = true // ensure next pair is not processed because the nextTile will already be merged
                 tile.increment()
+                score += tile.expressedValue!
                 return tile
             } else {
                 return tile
@@ -73,7 +75,7 @@ struct BoardModel {
         return isLeft ? combinedTiles + zeroPad : zeroPad + combinedTiles.reversed()
     }
     
-    /// Performs a collapse on the array, combining all equal-valued tiles according to the collpase direction.
+    /// Performs a collapse on the tile matrix, combining all equal-valued tiles according to the collpase direction.
     /// - Parameter direction: The direction in which the board should be collapsed.
     mutating func collapse(_ direction: CollapseDirection) {
         guard isCollapsible else { return }
@@ -142,7 +144,10 @@ fileprivate extension Array where Element == [TileModel] {
     // MARK: Game flow helper methods
     /// Describes if the matrix has a pair of collapsible tiles on either the horitzontal and vertical axis.
     private var hasPair: Bool {
-        func matrixHasPair(_ matrix: [Element]) -> Bool { matrix.map { $0.pairs.contains(true) }.contains(true) }
+        func matrixHasPair(_ matrix: [Element]) -> Bool {
+            matrix.map { $0.pairs.contains(true) }
+                .contains(true)
+        }
         
         return matrixHasPair(self) || matrixHasPair(transposed)
     }

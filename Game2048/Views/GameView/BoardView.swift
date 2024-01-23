@@ -42,29 +42,31 @@ struct BoardView: View {
     
     var body: some View {
         VStack {
-            ForEach(viewModel.tileViewModels, id: \.self) { row in
-                HStack {
-                    ForEach(row) { tileViewModel in
-                        TileView(viewModel: tileViewModel)
+            VStack {
+                ForEach(viewModel.tileViewModels, id: \.self) { row in
+                    HStack {
+                        ForEach(row) { tileViewModel in
+                            TileView(viewModel: tileViewModel)
+                        }
                     }
+                    .padding(ViewConstants.rowPadding)
                 }
-                .padding(ViewConstants.rowPadding)
             }
-            HStack {
-                Spacer()
-                HighScoreLabel(score: viewModel.score)
-                    .padding()
+            .frame(width: ViewConstants.boardSize, height: ViewConstants.boardSize)
+            .padding(ViewConstants.boardPadding)
+            .background(Color.gray.cornerRadius(ViewConstants.boardCornerRadius))
+            .alert(gameOverTitleString, isPresented: Binding<Bool>(
+                get: { viewModel.isPresentingGameOverAlert },
+                set: { _ in viewModel.isPresentingGameOverAlert = false }
+            )) {
+                Button(okString, role: .cancel) { }
             }
+            .gesture(boardSwipe)
+            Spacer()
+                .frame(height: ViewConstants.boardPadding)
+            HighScoreLabel(score: viewModel.score)
+                .frame(maxWidth: .infinity, alignment: .trailing)
         }
-        .frame(width: ViewConstants.boardSize, height: ViewConstants.boardSize)
-        .padding(ViewConstants.boardPadding)
-        .background(Color.gray.cornerRadius(ViewConstants.boardCornerRadius))
-        .gesture(boardSwipe)
-        .alert(gameOverTitleString, isPresented: Binding<Bool>(
-            get: { viewModel.isPresentingGameOverAlert },
-            set: { _ in viewModel.isPresentingGameOverAlert = false }
-        )) {
-            Button(okString, role: .cancel) { }
-        }
+        .fixedSize()
     }
 }

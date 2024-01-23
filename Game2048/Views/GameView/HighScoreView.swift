@@ -13,8 +13,8 @@ struct HighScoreLabel: View {
     /// Container for the constants used in the view
     private struct ViewConstants {
         static let scoreKey = NSLocalizedString("Score", comment: "High score label key content")
-        static let scoreKeyFontSize: CGFloat = 18
-        static let scoreFontSize: CGFloat = 24
+        static let scoreKeyFontSize: CGFloat = 32
+        static let scoreFontSize: CGFloat = 40
         static let backgroundCornerRadius: CGFloat = 12
     }
     
@@ -25,15 +25,16 @@ struct HighScoreLabel: View {
             Text(ViewConstants.scoreKey)
                 .font(.system(size: ViewConstants.scoreKeyFontSize))
                 .padding(.trailing)
-                .foregroundColor(.white)
+                .foregroundColor(.gray)
             Text(String(score))
                 .font(.system(size: ViewConstants.scoreFontSize))
-                .foregroundColor(GameColors.color0)
+                .bold()
+                .foregroundColor(.white)
         }
-        .padding()
+        .padding([.horizontal])
         .background(
             RoundedRectangle(cornerRadius: ViewConstants.backgroundCornerRadius)
-                    .fill(GameColors.color11)
+                    .fill(GameColors.color9)
                 )
     }
 }

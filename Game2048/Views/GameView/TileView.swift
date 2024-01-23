@@ -41,7 +41,8 @@ struct TileView: View {
     
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: Self.cornerRadius).fill(color)
+            RoundedRectangle(cornerRadius: Self.cornerRadius)
+                .fill(color)
             Text(viewModel.description)
                 .foregroundColor(Color.black).font(.title)
         }.applyConditionalModifier(viewModel.isSpawned) { view in

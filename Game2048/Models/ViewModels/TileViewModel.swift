@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TileViewModel: Identifiable, Hashable {
+struct TileViewModel: Identifiable, Hashable, TileExpressable {
     let id = UUID()
     let value: Int
     let isSpawned: Bool
@@ -15,5 +15,5 @@ struct TileViewModel: Identifiable, Hashable {
 
 extension TileViewModel: CustomStringConvertible {
     /// The string representation of the tile using its value raised to a power of 2.
-    public var description : String { value == 0 ? "" : (1 << value).description }
+    public var description: String { expressedValue?.description ?? "" }
 }
