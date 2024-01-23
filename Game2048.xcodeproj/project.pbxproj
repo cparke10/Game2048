@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		736370942B5F8D49001DA5CE /* Game2048+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736370932B5F8D49001DA5CE /* Game2048+View.swift */; };
 		73729FEB2B5B0954007648B2 /* Game2048App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73729FEA2B5B0954007648B2 /* Game2048App.swift */; };
 		73729FED2B5B0954007648B2 /* LandingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73729FEC2B5B0954007648B2 /* LandingPage.swift */; };
 		73729FF12B5B0955007648B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 73729FF02B5B0955007648B2 /* Assets.xcassets */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		736370932B5F8D49001DA5CE /* Game2048+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Game2048+View.swift"; sourceTree = "<group>"; };
 		73729FE72B5B0954007648B2 /* Game2048.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Game2048.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		73729FEA2B5B0954007648B2 /* Game2048App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game2048App.swift; sourceTree = "<group>"; };
 		73729FEC2B5B0954007648B2 /* LandingPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingPage.swift; sourceTree = "<group>"; };
@@ -49,6 +51,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		736370952B5F8DA5001DA5CE /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				736370932B5F8D49001DA5CE /* Game2048+View.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		73729FDE2B5B0954007648B2 = {
 			isa = PBXGroup;
 			children = (
@@ -74,6 +84,7 @@
 				73729FF02B5B0955007648B2 /* Assets.xcassets */,
 				73729FF22B5B0955007648B2 /* Game2048.entitlements */,
 				73729FF32B5B0955007648B2 /* Preview Content */,
+				736370952B5F8DA5001DA5CE /* Utilities */,
 			);
 			path = Game2048;
 			sourceTree = "<group>";
@@ -207,6 +218,7 @@
 				73EEABCD2B5B7DFF005149C2 /* LeaderboardButton.swift in Sources */,
 				73729FED2B5B0954007648B2 /* LandingPage.swift in Sources */,
 				73AEADF42B5EE60100E12D2E /* TileModel.swift in Sources */,
+				736370942B5F8D49001DA5CE /* Game2048+View.swift in Sources */,
 				73729FEB2B5B0954007648B2 /* Game2048App.swift in Sources */,
 				738D58A52B5E6EAF008A5CDC /* TileView.swift in Sources */,
 				738F21D42B5E30A400EB4C1B /* StatsView.swift in Sources */,

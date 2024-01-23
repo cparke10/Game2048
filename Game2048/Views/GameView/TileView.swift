@@ -2,7 +2,7 @@
 //  TileView.swift
 //  Game2048
 //
-//  Created by user253524 on 1/22/24.
+//  Created by Charlie Parker on 1/22/24.
 //
 
 import SwiftUI
@@ -10,7 +10,9 @@ import SwiftUI
 /// The view used to represent a tile within the game board.
 struct TileView: View {
     private let viewModel: TileViewModel
-    private let cornerRadius: CGFloat = 4
+    private static let cornerRadius: CGFloat = 4
+    private static let spawnScaleAnimationDuration: Double = 0.2
+    private static let postSpawnScale: Double = 1
     @State var spawnScale: Double = 0.95
     
     /// The color associated with the tile as driven by its value.
@@ -38,25 +40,17 @@ struct TileView: View {
     init(viewModel: TileViewModel) { self.viewModel = viewModel }
     
     var body: some View {
-        if viewModel.isSpawned {
-            baseBody
-                .scaleEffect(spawnScale)
-                .animation(.snappy(duration: 0.2))
-                .onAppear {
-                    spawnScale = 1
-                }
-     
-        } else {
-            baseBody
-        }
-    }
-    
-    private var baseBody: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: cornerRadius).fill(color)
+            RoundedRectangle(cornerRadius: Self.cornerRadius).fill(color)
             Text(viewModel.description)
                 .foregroundColor(Color.black).font(.title)
+        }.applyConditionalModifier(viewModel.isSpawned) { view in
+            view
+            .scaleEffect(spawnScale)
+            .animation(.snappy(duration: Self.spawnScaleAnimationDuration))
+            .onAppear {
+                spawnScale = Self.postSpawnScale
+            }
         }
     }
 }
-
