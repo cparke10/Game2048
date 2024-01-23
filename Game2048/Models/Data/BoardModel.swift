@@ -48,7 +48,6 @@ struct BoardModel {
         guard !strippedTiles.isEmpty else { return tiles }
         
         // merge tiles
-        // TODO: Refactor with reduce
         let pairedTiles = strippedTiles.pairs
         var shouldSkipPair = false
         let combinedTiles: [TileModel] = strippedTiles.enumerated().compactMap { (index, tile) in
