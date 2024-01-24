@@ -12,6 +12,16 @@ import SwiftUI
 struct LoginView: View {
     @State private var name: String = ""
     @State private var isLoggedIn = UserManager.shared.isLoggedIn
+    
+    private struct ViewConstants {
+        static let submitButtonPadding: CGFloat = 10
+        static let submitButtonCornerRadius: CGFloat = 24
+        static let submitButtonHeight: CGFloat = 48
+        static let submitButtonTitleContent = NSLocalizedString("Submit", comment: "Login view submit button title content")
+        static let usernameOverlayCornerRadius: CGFloat = 12
+        static let usernameOverlayLineWidth: CGFloat = 2
+        static let usernamePlaceholderContent = NSLocalizedString("Name", comment: "Login view name field placeholder content")
+    }
 
     var body: some View {
         NavigationStack {
@@ -20,7 +30,6 @@ struct LoginView: View {
                 usernameButton
                 Spacer()
                 submitButton
-                    .padding(10)
             }
             .navigationDestination(isPresented: $isLoggedIn) {
                 LandingPage()
@@ -31,11 +40,14 @@ struct LoginView: View {
 
 fileprivate extension LoginView {
     var usernameButton: some View {
-        TextField("Name", text: $name, prompt: Text("Name").foregroundStyle(.blue))
+        TextField(ViewConstants.usernamePlaceholderContent,
+                  text: $name,
+                  prompt: Text(ViewConstants.usernamePlaceholderContent)
+            .foregroundStyle(.blue))
             .padding()
             .overlay() {
-                RoundedRectangle(cornerRadius: 12)
-                    .stroke(.blue, lineWidth: 2)
+                RoundedRectangle(cornerRadius: ViewConstants.usernameOverlayCornerRadius)
+                    .stroke(.blue, lineWidth: ViewConstants.usernameOverlayLineWidth)
             }
             .padding(.horizontal)
     }
@@ -45,19 +57,19 @@ fileprivate extension LoginView {
             UserManager.shared.saveUser(with: name)
             isLoggedIn = UserManager.shared.isLoggedIn
         } label: {
-            Text("Submit")
+            Text(ViewConstants.submitButtonTitleContent)
                 .font(.title2)
                 .bold()
                 .foregroundColor(.white)
         }
-        .frame(height: 50)
+        .frame(height: ViewConstants.submitButtonHeight)
         .frame(maxWidth: .infinity)
         .background(
             LinearGradient(colors: [GameColors.color0, GameColors.color11],
                            startPoint: .topLeading,
                            endPoint: .bottomTrailing)
         )
-        .cornerRadius(24)
-        .padding()
+        .cornerRadius(ViewConstants.submitButtonCornerRadius)
+        .padding(ViewConstants.submitButtonPadding)
     }
 }

@@ -15,6 +15,7 @@ struct GameInterfaceStack: View {
         static let scoreKey = NSLocalizedString("Score", comment: "High score label key content")
         static let scoreKeyFontSize: CGFloat = 32
         static let scoreFontSize: CGFloat = 40
+        static let resetImageName = "arrow.clockwise"
         static let spacing: CGFloat = 6
     }
     
@@ -51,7 +52,7 @@ fileprivate extension GameInterfaceStack {
         Button {
             boardViewModel.reset()
         } label: {
-            Image(systemName: "arrow.clockwise")
+            Image(systemName: ViewConstants.resetImageName)
                 .font(.title)
                 .foregroundStyle(.white)
                 .padding()
