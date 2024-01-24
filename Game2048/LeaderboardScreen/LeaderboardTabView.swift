@@ -37,9 +37,9 @@ fileprivate extension LeaderboardTabView {
 
 /// A specifc leaderboard within the `LeaderboardTabView`. Displays a list of leaderboard entries tied to the specified `LeaderboardType`.
 fileprivate struct LeaderboardView: View {
-    @State private var leaderboardResponse: Result<LeaderboardData, Error>?
     let type: LeaderboardType
     private let service = LeaderboardService()
+    @State private var leaderboardResponse: Result<LeaderboardData, Error>?
     
     private static let errorString = NSLocalizedString("", comment: "Leaderboard error state content")
     
@@ -57,6 +57,8 @@ fileprivate struct LeaderboardView: View {
         }
     }
     
+    /// Requests the `LeaderboardService` using the given `LeaderboardType` and updates the view state using the response.
+    /// - Parameter type: The `LeaderboardType` to request.
     private func requestLeaderboard(with type: LeaderboardType) {
         service.request(with: type) { result in
             leaderboardResponse = result
@@ -65,6 +67,10 @@ fileprivate struct LeaderboardView: View {
 }
 
 fileprivate extension LeaderboardView {
+    
+    /// Constructs and returns a list of leaderboard entries reflecting the given `LeaderboardData`.
+    /// - Parameter leaderboard: The `LeaderboardData` to display.
+    /// - Returns: A `List` view containing the data.
     func loadedView(for leaderboard: LeaderboardData) -> some View {
         Section {
             List(leaderboard) { entry in
@@ -95,6 +101,7 @@ fileprivate extension LeaderboardView {
         }
     }
     
+    /// The error view used for the leaderboard.
     var errorView: some View {
         VStack {
             Spacer()
