@@ -38,3 +38,12 @@ class BoardViewModel: ObservableObject {
         score = model.score
     }
 }
+
+// MARK: Accessibility content
+extension BoardViewModel {
+    var tilesAccessibilityLabel: String {
+        tileViewModels.enumerated().map { (rowIndex, row) in
+            "Row \(rowIndex + 1): \(row.map { String($0.value) }.joined(separator: ",") )"
+        }.joined(separator: ",")
+    }
+}

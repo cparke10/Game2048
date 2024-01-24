@@ -48,7 +48,7 @@ struct BoardView: View {
             .gesture(boardSwipe)
             Spacer()
                 .frame(height: ViewConstants.boardPadding)
-            GameInterfaceStack(score: viewModel.score, resetCallback: viewModel.reset)
+            GameInterfaceStack(viewModel: GameInterfaceStackViewModel(score: viewModel.score, resetCallback: viewModel.reset))
         }
         .fixedSize(horizontal: true, vertical: false) // horizontally align interface stack with tile matrix stack
     }
@@ -72,5 +72,6 @@ extension BoardView {
         .frame(width: ViewConstants.boardSize, height: ViewConstants.boardSize)
         .padding(ViewConstants.boardPadding)
         .background(Color.gray.cornerRadius(ViewConstants.boardCornerRadius))
+        .accessibilityElement().accessibilityLabel(viewModel.tilesAccessibilityLabel)
     }
 }

@@ -8,8 +8,7 @@ import SwiftUI
 
 /// The view used to represent the game interface elements outside the board. Contains the score label and reset button.
 struct GameInterfaceStack: View {
-    let score: Int
-    let resetCallback: () -> Void
+    let viewModel: GameInterfaceStackViewModel
     
     /// Container for the constants used in the view
     private struct ViewConstants {
@@ -38,7 +37,7 @@ fileprivate extension GameInterfaceStack {
                 .font(.system(size: ViewConstants.scoreKeyFontSize))
                 .padding(.trailing)
                 .foregroundColor(.gray)
-            Text(String(score))
+            Text(String(viewModel.score))
                 .font(.system(size: ViewConstants.scoreFontSize))
                 .bold()
                 .foregroundColor(.white)
@@ -51,7 +50,7 @@ fileprivate extension GameInterfaceStack {
     /// The button used to reset the dependent view model.
     var resetButton: some View {
         Button {
-            resetCallback()
+            viewModel.resetCallback()
         } label: {
             Image(systemName: ViewConstants.resetImageName)
                 .font(.title)
@@ -60,6 +59,7 @@ fileprivate extension GameInterfaceStack {
                 .addRoundedBackground(color: GameColors.color5)
         }
         .frame(maxWidth: .infinity, alignment: .trailing)
+        .accessibilityElement().accessibilityLabel(viewModel.resetAccessibilityLabel).accessibilityHint(viewModel.resetAccesibilityHint)
     }
 }
 
