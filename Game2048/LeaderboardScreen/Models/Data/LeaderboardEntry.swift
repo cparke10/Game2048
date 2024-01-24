@@ -7,12 +7,8 @@
 
 import Foundation
 
-typealias LeaderboardData = [LeaderboardEntry]
-
-struct LeaderboardEntry: Decodable, Identifiable {
+struct LeaderboardEntry: Decodable {
     let username: String
     let score: Int
     let date: String
-    
-    var id: String { username + date }
 }

@@ -27,7 +27,7 @@ fileprivate extension LeaderboardTabView {
     /// - Returns: A `LeaderboardView` driven by the given type.
     func leaderboardTab(_ type: LeaderboardType) -> some View {
         let tabAttributes = type.tabAttributes
-        return LeaderboardView(type: type)
+        return LeaderboardView(viewModel: LeaderboardViewModel(type: type))
             .tabItem {
                 Label(tabAttributes.title, systemImage: tabAttributes.icon)
             }
