@@ -57,6 +57,7 @@ fileprivate extension LoginView {
                            startPoint: .topLeading,
                            endPoint: .bottomTrailing)
         )
-        .cornerRadius(20)
+        .cornerRadius(24)
         .padding()
-    }}
+    }
+}

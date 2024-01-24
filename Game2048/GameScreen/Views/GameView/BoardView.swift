@@ -9,7 +9,7 @@ import SwiftUI
 
 /// The view used to represent the game board.
 struct BoardView: View {
-    @ObservedObject var viewModel: BoardViewModel = .init()
+    @StateObject var viewModel: BoardViewModel = .init()
 
     /// Container for the constants used in the view
     private struct ViewConstants {
@@ -42,31 +42,36 @@ struct BoardView: View {
     
     var body: some View {
         VStack {
-            VStack {
-                ForEach(viewModel.tileViewModels, id: \.self) { row in
-                    HStack {
-                        ForEach(row) { tileViewModel in
-                            TileView(viewModel: tileViewModel)
-                        }
-                    }
-                    .padding(ViewConstants.rowPadding)
-                }
-            }
-            .frame(width: ViewConstants.boardSize, height: ViewConstants.boardSize)
-            .padding(ViewConstants.boardPadding)
-            .background(Color.gray.cornerRadius(ViewConstants.boardCornerRadius))
-            .alert(ViewConstants.gameOverTitleString, isPresented: Binding<Bool>(
-                get: { viewModel.isPresentingGameOverAlert },
-                set: { _ in viewModel.isPresentingGameOverAlert = false }
-            )) {
+            tileMatrixStack(tileViewModels: viewModel.tileViewModels)
+            .alert(ViewConstants.gameOverTitleString, isPresented: $viewModel.isPresentingGameOverAlert) {
                 Button(ViewConstants.okString, role: .cancel) { }
             }
             .gesture(boardSwipe)
             Spacer()
                 .frame(height: ViewConstants.boardPadding)
-            HighScoreLabel(score: viewModel.score)
-                .frame(maxWidth: .infinity, alignment: .trailing)
+            GameInterfaceStack(boardViewModel: viewModel)
         }
-        .fixedSize()
+        .fixedSize(horizontal: true, vertical: false) // horizontally align interface stack with tile matrix stack
+    }
+}
+
+extension BoardView {
+    /// Constructs and returns a 2D view matrix for the tiles.
+    /// - Parameter tileViewModels: The 2dD array of `TileViewModel` used to configure the view.
+    /// - Returns: A 2D view matrix for the tiles.
+    func tileMatrixStack(tileViewModels: [[TileViewModel]]) -> some View {
+        VStack {
+            ForEach(viewModel.tileViewModels, id: \.self) { row in
+                HStack {
+                    ForEach(row) { tileViewModel in
+                        TileView(viewModel: tileViewModel)
+                    }
+                }
+                .padding(ViewConstants.rowPadding)
+            }
+        }
+        .frame(width: ViewConstants.boardSize, height: ViewConstants.boardSize)
+        .padding(ViewConstants.boardPadding)
+        .background(Color.gray.cornerRadius(ViewConstants.boardCornerRadius))
     }
 }

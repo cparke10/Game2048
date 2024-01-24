@@ -32,4 +32,9 @@ class BoardViewModel: ObservableObject {
             self?.isPresentingGameOverAlert = self?.model.isCollapsible == false
         }
     }
+    
+    func reset() {
+        model.reset()
+        score = model.score
+    }
 }

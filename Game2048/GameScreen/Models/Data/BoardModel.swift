@@ -11,21 +11,26 @@ import Foundation
 /// The model for the board. Manages the game engine of the application.
 struct BoardModel {
     var dimension = 4
-    var tiles: [[TileModel]]
+    var tiles: [[TileModel]] = []
     var spawnedTile: TileModel?
     var score = 0
     
     /// Describes if the game is over based on available user moves.
     var isCollapsible: Bool { tiles.hasMove }
     
-    init() {
+    init() { generateInitialBoard(dimension) }
+    
+    private mutating func generateInitialBoard(_ dimension: Int) {
         let range = 0..<dimension
-        tiles = range.map { _ in
+        self.tiles = range.map { _ in
             range.map { _ in TileModel() }
         }
-    
+        
         spawnTile()
         spawnTile()
+        spawnedTile = nil // suppress spawn tile logic for initial tiles
+
+        score = 0
     }
     
     /// Increments a random 0-valued tile. If none exist, this has no effect.
@@ -36,6 +41,29 @@ struct BoardModel {
         let amount: Int = ((1...8).randomElement()! % 8) == 0 ? 2 : 1 // increment by 1 or 2 with low probability
         targetTile?.increment(by: amount)
         spawnedTile = targetTile
+    }
+    
+    // MARK: Collapse methods
+    
+    /// The direction in which the board is collapsed.
+    enum CollapseDirection {
+        case up, down, left, right
+        
+        /// Describes if the collapse is relative to the vertical axis.
+        var isCollapseAxisVertical: Bool {
+            switch self {
+            case .up, .down: return true
+            case .left, .right: return false
+            }
+        }
+        
+        /// Describes if the collapse is occuring to the left.
+        var isCollapsingLeft: Bool {
+            switch self {
+            case .left, .up: return true
+            case .right, .down: return false
+            }
+        }
     }
     
     /// Performs an array collapse on a single array of tiles.
@@ -66,53 +94,42 @@ struct BoardModel {
             }
         }
         
-        // re-add zero padding after filtering them out above
         func createNewTile() -> TileModel { TileModel() }
         let zeroPad = Array(repeating: createNewTile, count: dimension - combinedTiles.count).map { $0() }
         
-        // pad and return the result
-        // for right swipes, pad the result on the left and undo the pre-merge reverse from above
+        // append the zero padding and undo the reversal if needed.
         return isLeft ? combinedTiles + zeroPad : zeroPad + combinedTiles.reversed()
     }
     
-    /// Performs a collapse on the tile matrix, combining all equal-valued tiles according to the collpase direction.
+    /// Performs a collapse on the tile matrix, combining all equal-valued tiles according to the collapse direction.
     /// - Parameter direction: The direction in which the board should be collapsed.
     mutating func collapse(_ direction: CollapseDirection) {
         guard isCollapsible else { return }
         
-        let isCollapseVertical =  direction.axis == .vertical
+        let isCollapseVertical =  direction.isCollapseAxisVertical
         let temporaryBoard = isCollapseVertical ? tiles.transposed : tiles
-        let shouldMergeLeft = direction == .left || direction == .up
+        let shouldMergeLeft = direction.isCollapsingLeft
         
         var newBoard: [[TileModel]] = []
         for row in temporaryBoard { newBoard.append(collapseArray(row, isLeft: shouldMergeLeft)) }
 
         // if the collapse modified the values of the board, proceed to next game state (collapsed board + new tile)
         if tiles != newBoard {
-            // undo transpose, if performed above
+            // undo transpose if performed above
             if isCollapseVertical { newBoard = newBoard.transposed }
 
-            tiles = newBoard // update board
+            tiles = newBoard
             spawnTile()
         } else {
             spawnedTile = nil
         }
     }
-
-    /// The direction in which the board is collapsed.
-    enum CollapseDirection {
-        case up, down, left, right
-        
-        /// The axis of the collapse direction.
-        enum Axis { case vertical, horizontal }
-        
-        /// Returns the axis of the collapse direction.
-        var axis: Axis {
-            switch self {
-            case .up, .down: return .vertical
-            case .left, .right: return .horizontal
-            }
-        }
+    
+    // MARK: Reset method
+    
+    /// Sets the game state to the initial state.
+    mutating func reset() {
+        generateInitialBoard(dimension)
     }
 }
 
@@ -144,7 +161,7 @@ fileprivate extension Array where Element == [TileModel] {
     var flattened: [TileModel] { reduce([], +) }
     
     // MARK: Game flow helper methods
-    /// Describes if the matrix has a pair of collapsible tiles on either the horitzontal and vertical axis.
+    /// Describes if the matrix has a pair of collapsible tiles on either the horizontal or vertical axises.
     private var hasPair: Bool {
         func matrixHasPair(_ matrix: [Element]) -> Bool {
             matrix.map { $0.pairs.contains(true) }
