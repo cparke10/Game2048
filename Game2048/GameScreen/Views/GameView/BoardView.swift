@@ -35,7 +35,6 @@ struct BoardView: View {
                     currSwipe = yDelta < 0 ? .up : .down
                 }
                 
-                
                 viewModel.collapse(direction: currSwipe)
             }
     }
