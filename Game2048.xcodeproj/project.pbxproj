@@ -26,6 +26,7 @@
 		738F21D42B5E30A400EB4C1B /* HighScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738F21D32B5E30A400EB4C1B /* HighScoreView.swift */; };
 		73AEADF42B5EE60100E12D2E /* TileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73AEADF32B5EE60100E12D2E /* TileModel.swift */; };
 		73B507252B60CFD5006117FE /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B507242B60CFD5006117FE /* UserManager.swift */; };
+		73C78E1A2B60DD7D00443E2B /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C78E192B60DD7D00443E2B /* LoginView.swift */; };
 		73EEABCB2B5B7BC1005149C2 /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73EEABCA2B5B7BC1005149C2 /* BoardView.swift */; };
 		73EEABCD2B5B7DFF005149C2 /* LeaderboardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73EEABCC2B5B7DFF005149C2 /* LeaderboardButton.swift */; };
 /* End PBXBuildFile section */
@@ -52,6 +53,7 @@
 		738F21D32B5E30A400EB4C1B /* HighScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighScoreView.swift; sourceTree = "<group>"; };
 		73AEADF32B5EE60100E12D2E /* TileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileModel.swift; sourceTree = "<group>"; };
 		73B507242B60CFD5006117FE /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
+		73C78E192B60DD7D00443E2B /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		73EEABCA2B5B7BC1005149C2 /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
 		73EEABCC2B5B7DFF005149C2 /* LeaderboardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -153,6 +155,7 @@
 				731593782B6071660050D48F /* LeaderboardScreen */,
 				731593772B6071200050D48F /* GameScreen */,
 				73729FEA2B5B0954007648B2 /* Game2048App.swift */,
+				73C78E192B60DD7D00443E2B /* LoginView.swift */,
 				73729FF02B5B0955007648B2 /* Assets.xcassets */,
 				73729FF22B5B0955007648B2 /* Game2048.entitlements */,
 				73729FF32B5B0955007648B2 /* Preview Content */,
@@ -294,6 +297,7 @@
 				731F6B922B60AC6400782BF2 /* LeaderboardViewModel.swift in Sources */,
 				73729FED2B5B0954007648B2 /* LandingPage.swift in Sources */,
 				736370982B5F8F73001DA5CE /* GameColors.swift in Sources */,
+				73C78E1A2B60DD7D00443E2B /* LoginView.swift in Sources */,
 				73AEADF42B5EE60100E12D2E /* TileModel.swift in Sources */,
 				7315937F2B6077790050D48F /* LeaderboardType.swift in Sources */,
 				731F6B8E2B608C8400782BF2 /* LeaderboardView.swift in Sources */,
