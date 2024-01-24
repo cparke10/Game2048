@@ -24,4 +24,8 @@ class LeaderboardService {
             }
         }.resume()
     }
+    
+    func submit(score: String) {
+        
+    }
 }

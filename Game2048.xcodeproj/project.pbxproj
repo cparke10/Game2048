@@ -25,6 +25,7 @@
 		738D58A52B5E6EAF008A5CDC /* TileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738D58A42B5E6EAF008A5CDC /* TileView.swift */; };
 		738F21D42B5E30A400EB4C1B /* HighScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738F21D32B5E30A400EB4C1B /* HighScoreView.swift */; };
 		73AEADF42B5EE60100E12D2E /* TileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73AEADF32B5EE60100E12D2E /* TileModel.swift */; };
+		73B507252B60CFD5006117FE /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B507242B60CFD5006117FE /* UserManager.swift */; };
 		73EEABCB2B5B7BC1005149C2 /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73EEABCA2B5B7BC1005149C2 /* BoardView.swift */; };
 		73EEABCD2B5B7DFF005149C2 /* LeaderboardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73EEABCC2B5B7DFF005149C2 /* LeaderboardButton.swift */; };
 /* End PBXBuildFile section */
@@ -50,6 +51,7 @@
 		738D58A42B5E6EAF008A5CDC /* TileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileView.swift; sourceTree = "<group>"; };
 		738F21D32B5E30A400EB4C1B /* HighScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighScoreView.swift; sourceTree = "<group>"; };
 		73AEADF32B5EE60100E12D2E /* TileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileModel.swift; sourceTree = "<group>"; };
+		73B507242B60CFD5006117FE /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		73EEABCA2B5B7BC1005149C2 /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
 		73EEABCC2B5B7DFF005149C2 /* LeaderboardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -70,6 +72,7 @@
 			children = (
 				73729FFC2B5B18A0007648B2 /* Models */,
 				73729FFB2B5B1894007648B2 /* Views */,
+				73B507242B60CFD5006117FE /* UserManager.swift */,
 			);
 			path = GameScreen;
 			sourceTree = "<group>";
@@ -285,6 +288,7 @@
 			files = (
 				7315937D2B6076590050D48F /* LeaderboardService.swift in Sources */,
 				7372A0052B5B1952007648B2 /* BoardModel.swift in Sources */,
+				73B507252B60CFD5006117FE /* UserManager.swift in Sources */,
 				73EEABCD2B5B7DFF005149C2 /* LeaderboardButton.swift in Sources */,
 				7315937B2B60718D0050D48F /* LeaderboardEntry.swift in Sources */,
 				731F6B922B60AC6400782BF2 /* LeaderboardViewModel.swift in Sources */,
