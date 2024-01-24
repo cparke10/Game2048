@@ -49,7 +49,7 @@ struct BoardView: View {
             .gesture(boardSwipe)
             Spacer()
                 .frame(height: ViewConstants.boardPadding)
-            GameInterfaceStack(boardViewModel: viewModel)
+            GameInterfaceStack(score: viewModel.score, resetCallback: viewModel.reset)
         }
         .fixedSize(horizontal: true, vertical: false) // horizontally align interface stack with tile matrix stack
     }
