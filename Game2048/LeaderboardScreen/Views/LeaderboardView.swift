@@ -13,7 +13,7 @@ struct LeaderboardView: View {
     @ObservedObject private var viewModel: LeaderboardViewModel
     private let service = LeaderboardService()
     
-    private static let errorString = NSLocalizedString("We're sorry, we had trouble loading the leaderboard. Please come back later",
+    private static let errorString = NSLocalizedString("We're sorry, we had trouble loading the leaderboard. Please come back later.",
                                                        comment: "Leaderboard error state content")
     
     init(viewModel: LeaderboardViewModel) { self.viewModel = viewModel }
