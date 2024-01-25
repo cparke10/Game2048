@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Represents the type of the leaderboard: either a personal or global leaderboard.
 enum LeaderboardType: Int {
     private struct Constants {
         // MARK: Tab constants

@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// View model for the game interface stack. Holds the score for the score button, and a callback to the parent view model for reseting the game state.
 struct GameInterfaceStackViewModel {
     let score: Int
     let resetCallback: () -> Void

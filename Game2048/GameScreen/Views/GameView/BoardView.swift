@@ -76,7 +76,7 @@ extension BoardView {
         .accessibilityElement().accessibilityLabel(viewModel.tilesAccessibilityLabel)
     }
     
-    /// The `Alert` used for the game over scenario. Displays the final game score and allows for leaderboard submission.
+    /// The `Alert` used for the game over scenario. Displays the final game score and allows for score submission to the leaderboard.
     var gameOverAlert: Alert {
         Alert(title: Text(ViewConstants.gameOverTitleString),
               message: Text(String(format: ViewConstants.gameOverMessageString, String(viewModel.score))),
