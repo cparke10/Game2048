@@ -59,7 +59,7 @@ fileprivate extension GameInterfaceStack {
                 .addRoundedBackground(color: GameColors.color5)
         }
         .frame(maxWidth: .infinity, alignment: .trailing)
-        .accessibilityElement().accessibilityLabel(viewModel.resetAccessibilityLabel).accessibilityHint(viewModel.resetAccesibilityHint)
+        .setAccessibilityAttributes(label: viewModel.resetAccessibilityLabel, hint: viewModel.resetAccesibilityHint)
     }
 }
 

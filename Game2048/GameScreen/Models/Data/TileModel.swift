@@ -10,6 +10,7 @@ import Foundation
 /// Represents a tile element in the board.
 class TileModel: Equatable, TileExpressable {
     var value = 0
+    let id = UUID()
     
     /// Increase the value of the tile by one.
     func increment(by amount: Int = 1) { value += amount }

@@ -20,7 +20,7 @@ struct BoardView: View {
         static let boardCornerRadius: CGFloat = 10
         static let gameOverTitleString = NSLocalizedString("Game Over!", comment: "Game over alert title content")
         static let gameOverMessageString = NSLocalizedString("You scored: %@", comment: "Game over alert message content")
-        static let gameOverSubmitString = NSLocalizedString("Submit", comment: "Game over submit button content") // TODO: store statically as its reused in other screen
+        static let gameOverSubmitString = NSLocalizedString("Submit", comment: "Game over submit button content")
         static let gameOverOkString = NSLocalizedString("OK", comment: "OK alert button content")
     }
     
@@ -45,12 +45,12 @@ struct BoardView: View {
     var body: some View {
         VStack {
             tileMatrixStack(tileViewModels: viewModel.tileViewModels)
-                .alert(isPresented: $viewModel.isPresentingGameOverAlert) { gameOverAlert }
                 .gesture(boardSwipe)
             Spacer()
                 .frame(height: ViewConstants.boardPadding)
             GameInterfaceStack(viewModel: GameInterfaceStackViewModel(score: viewModel.score, resetCallback: viewModel.reset))
         }
+        .alert(isPresented: $viewModel.isPresentingGameOverAlert) { gameOverAlert }
         .fixedSize(horizontal: true, vertical: false) // horizontally align interface stack with tile matrix stack
     }
 }
@@ -73,6 +73,7 @@ extension BoardView {
         .frame(width: ViewConstants.boardSize, height: ViewConstants.boardSize)
         .padding(ViewConstants.boardPadding)
         .background(Color.gray.cornerRadius(ViewConstants.boardCornerRadius))
+        .setAccessibilityAttributes(label: viewModel.tilesAccessibilityLabel)
         .accessibilityElement().accessibilityLabel(viewModel.tilesAccessibilityLabel)
     }
     

@@ -28,7 +28,7 @@ struct BoardModel {
         
         spawnTile()
         spawnTile()
-        spawnedTile = nil // suppress spawn tile logic for initial tiles
+        spawnedTile = nil // suppress updating of spawnedTile for initial game state
 
         score = 0
     }
@@ -97,7 +97,7 @@ struct BoardModel {
         func createNewTile() -> TileModel { TileModel() }
         let zeroPad = Array(repeating: createNewTile, count: dimension - combinedTiles.count).map { $0() }
         
-        // append the zero padding and undo the reversal if needed.
+        // append the zero padding and undo the reversal if needed
         return isLeft ? combinedTiles + zeroPad : zeroPad + combinedTiles.reversed()
     }
     
@@ -106,18 +106,16 @@ struct BoardModel {
     mutating func collapse(_ direction: CollapseDirection) {
         guard isCollapsible else { return }
         
+        let shouldMergeLeft = direction.isCollapsingLeft
         let isCollapseVertical =  direction.isCollapseAxisVertical
         let temporaryBoard = isCollapseVertical ? tiles.transposed : tiles
-        let shouldMergeLeft = direction.isCollapsingLeft
+        var newBoard = temporaryBoard.map { collapseArray($0, isLeft: shouldMergeLeft) }
         
-        var newBoard: [[TileModel]] = []
-        for row in temporaryBoard { newBoard.append(collapseArray(row, isLeft: shouldMergeLeft)) }
-
+        // undo transpose if performed above
+        if isCollapseVertical { newBoard = newBoard.transposed }
+        
         // if the collapse modified the values of the board, proceed to next game state (collapsed board + new tile)
         if tiles != newBoard {
-            // undo transpose if performed above
-            if isCollapseVertical { newBoard = newBoard.transposed }
-
             tiles = newBoard
             spawnTile()
         } else {

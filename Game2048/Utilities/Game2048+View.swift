@@ -20,4 +20,15 @@ extension View {
             self
         }
     }
+    
+    /// Wrapper around the accessibility modifier APIs which allows for setting of label and hint.
+    /// - Parameters:
+    ///   - label: The label string to apply to the view.
+    ///   - hint: The hint string to apply to the view.
+    /// - Returns: The modified view with the accessibility properties applied.
+    @ViewBuilder func setAccessibilityAttributes(label: String? = nil, hint: String? = nil) -> some View {
+        accessibilityElement()
+            .applyConditionalModifier(label != nil) { $0.accessibilityLabel(Text(label!)) }
+            .applyConditionalModifier(hint != nil) { $0.accessibilityHint(Text(hint!)) }
+    }
 }
