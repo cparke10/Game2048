@@ -20,6 +20,8 @@ class LeaderboardViewModel: ObservableObject {
     private let service = LeaderboardService()
     @Published var state: State = .loading
     
+    init(type: LeaderboardType) { self.type = type }
+    
     enum State {
         case loading, loaded([LeaderboardEntryViewModel]), error
         
@@ -41,15 +43,9 @@ class LeaderboardViewModel: ObservableObject {
         }
     }
     
-    init(type: LeaderboardType) { self.type = type }
-    
     /// Requests the `LeaderboardService` using the instance's `LeaderboardType` and updates the view state using the response.
     /// - Parameter type: The `LeaderboardType` to request.
-    func requestLeaderboard() {
-        service.request(with: type) { result in
-            DispatchQueue.main.async { [weak self] in
-                self?.state = State(result: result)
-            }
-        }
+    func update(with result: Result<[LeaderboardEntry], Error>) {
+        state = State(result: result)
     }
 }

@@ -11,6 +11,8 @@ import SwiftUI
 struct LeaderboardView: View {
     
     @ObservedObject private var viewModel: LeaderboardViewModel
+    private let service = LeaderboardService()
+    
     private static let errorString = NSLocalizedString("We're sorry, we had trouble loading the leaderboard. Please come back later",
                                                        comment: "Leaderboard error state content")
     
@@ -24,8 +26,18 @@ struct LeaderboardView: View {
             case .loading:
                 ProgressView()
                     .onAppear {
-                        viewModel.requestLeaderboard()
+                        requestLeaderboard()
                     }
+            }
+        }
+    }
+    
+    /// Requests the `LeaderboardService` using the viewModel's `LeaderboardType` and updates the viewModel state with the result
+    /// - Parameter type: The `LeaderboardType` to request.
+    private func requestLeaderboard() {
+        service.requestLeaderboard(for: viewModel.type) { result in
+            DispatchQueue.main.async {
+                self.viewModel.update(with: result)
             }
         }
     }

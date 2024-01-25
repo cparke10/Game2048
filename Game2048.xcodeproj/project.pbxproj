@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		73127A7B2B6219D5007D5BCC /* SubmissionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73127A7A2B6219D5007D5BCC /* SubmissionResponse.swift */; };
 		7315937B2B60718D0050D48F /* LeaderboardEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7315937A2B60718D0050D48F /* LeaderboardEntry.swift */; };
 		7315937D2B6076590050D48F /* LeaderboardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7315937C2B6076590050D48F /* LeaderboardService.swift */; };
 		7315937F2B6077790050D48F /* LeaderboardType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7315937E2B6077790050D48F /* LeaderboardType.swift */; };
@@ -33,6 +34,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		73127A7A2B6219D5007D5BCC /* SubmissionResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmissionResponse.swift; sourceTree = "<group>"; };
 		7315937A2B60718D0050D48F /* LeaderboardEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardEntry.swift; sourceTree = "<group>"; };
 		7315937C2B6076590050D48F /* LeaderboardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardService.swift; sourceTree = "<group>"; };
 		7315937E2B6077790050D48F /* LeaderboardType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardType.swift; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				7315937A2B60718D0050D48F /* LeaderboardEntry.swift */,
+				73127A7A2B6219D5007D5BCC /* SubmissionResponse.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -306,6 +309,7 @@
 				7315937F2B6077790050D48F /* LeaderboardType.swift in Sources */,
 				731F6B8E2B608C8400782BF2 /* LeaderboardView.swift in Sources */,
 				736370942B5F8D49001DA5CE /* Game2048+View.swift in Sources */,
+				73127A7B2B6219D5007D5BCC /* SubmissionResponse.swift in Sources */,
 				73729FEB2B5B0954007648B2 /* Game2048App.swift in Sources */,
 				731593812B607F5C0050D48F /* LeaderboardTabView.swift in Sources */,
 				738D58A52B5E6EAF008A5CDC /* TileView.swift in Sources */,

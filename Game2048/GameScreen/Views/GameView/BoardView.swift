@@ -56,7 +56,7 @@ struct BoardView: View {
 
 extension BoardView {
     /// Constructs and returns a 2D view matrix for the tiles.
-    /// - Parameter tileViewModels: The 2dD array of `TileViewModel` used to configure the view.
+    /// - Parameter tileViewModels: The 2D array of `TileViewModel` used to configure the view.
     /// - Returns: A 2D view matrix for the tiles.
     func tileMatrixStack(tileViewModels: [[TileViewModel]]) -> some View {
         VStack {
