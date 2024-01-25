@@ -32,8 +32,7 @@ struct LeaderboardView: View {
         }
     }
     
-    /// Requests the `LeaderboardService` using the viewModel's `LeaderboardType` and updates the viewModel state with the result
-    /// - Parameter type: The `LeaderboardType` to request.
+    /// Requests the `LeaderboardService` using the viewModel's type and updates the viewModel state with the result.
     private func requestLeaderboard() {
         service.requestLeaderboard(for: viewModel.type) { result in
             DispatchQueue.main.async {

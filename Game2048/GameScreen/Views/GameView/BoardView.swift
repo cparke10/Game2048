@@ -10,6 +10,7 @@ import SwiftUI
 /// The view used to represent the game board.
 struct BoardView: View {
     @StateObject var viewModel: BoardViewModel = .init()
+    private let service = LeaderboardService()
 
     /// Container for the constants used in the view
     private struct ViewConstants {
@@ -18,7 +19,9 @@ struct BoardView: View {
         static let boardPadding: CGFloat = 10
         static let boardCornerRadius: CGFloat = 10
         static let gameOverTitleString = NSLocalizedString("Game Over!", comment: "Game over alert title content")
-        static let okString = NSLocalizedString("OK", comment: "OK alert button content")
+        static let gameOverMessageString = NSLocalizedString("You scored: %@", comment: "Game over alert message content")
+        static let gameOverSubmitString = NSLocalizedString("Submit", comment: "Game over submit button content") // TODO: store statically as its reused in other screen
+        static let gameOverOkString = NSLocalizedString("OK", comment: "OK alert button content")
     }
     
     /// The gesture which handles swipe actions on the board by updating the view model.
@@ -42,10 +45,8 @@ struct BoardView: View {
     var body: some View {
         VStack {
             tileMatrixStack(tileViewModels: viewModel.tileViewModels)
-            .alert(ViewConstants.gameOverTitleString, isPresented: $viewModel.isPresentingGameOverAlert) {
-                Button(ViewConstants.okString, role: .cancel) { }
-            }
-            .gesture(boardSwipe)
+                .alert(isPresented: $viewModel.isPresentingGameOverAlert) { gameOverAlert }
+                .gesture(boardSwipe)
             Spacer()
                 .frame(height: ViewConstants.boardPadding)
             GameInterfaceStack(viewModel: GameInterfaceStackViewModel(score: viewModel.score, resetCallback: viewModel.reset))
@@ -55,7 +56,7 @@ struct BoardView: View {
 }
 
 extension BoardView {
-    /// Constructs and returns a 2D view matrix for the tiles.
+    /// Constructs and returns a 2D view matrix for the tile view models.
     /// - Parameter tileViewModels: The 2D array of `TileViewModel` used to configure the view.
     /// - Returns: A 2D view matrix for the tiles.
     func tileMatrixStack(tileViewModels: [[TileViewModel]]) -> some View {
@@ -73,5 +74,15 @@ extension BoardView {
         .padding(ViewConstants.boardPadding)
         .background(Color.gray.cornerRadius(ViewConstants.boardCornerRadius))
         .accessibilityElement().accessibilityLabel(viewModel.tilesAccessibilityLabel)
+    }
+    
+    /// The `Alert` used for the game over scenario. Displays the final game score and allows for leaderboard submission.
+    var gameOverAlert: Alert {
+        Alert(title: Text(ViewConstants.gameOverTitleString),
+              message: Text(String(format: ViewConstants.gameOverMessageString, String(viewModel.score))),
+              primaryButton: .cancel(Text(ViewConstants.gameOverOkString)),
+              secondaryButton: .default(Text(ViewConstants.gameOverSubmitString)) {
+            service.submitEntry(score: viewModel.score) { _ in } // fire and forget score submission
+        })
     }
 }
