@@ -16,8 +16,11 @@ class LoginService {
     ///   - type: The `LeaderboardType` to request the API for.
     ///   - completionHandler: The completion block to handle the service response.
     func login(with username: String, completionHandler: @escaping (Result<LoginResponse, Error>) -> Void) {
+        guard let body = try? JSONEncoder().encode(["name": username]) else { return }
+        
         var request = baseRequest
         request.httpMethod = URLRequest.HTTPMethod.post.rawValue
+        request.httpBody = body
         
         URLRequest.request(baseRequest, responseType: LoginResponse.self, completionHandler: completionHandler)
     }
