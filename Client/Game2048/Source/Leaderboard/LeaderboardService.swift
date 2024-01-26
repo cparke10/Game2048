@@ -9,7 +9,7 @@ import Foundation
 
 /// Manges requests to the leaderboard API.
 class LeaderboardService {
-    private let baseURLString = "https://www.google.com/" // TODO: replace with LeaderboardServer url
+    private let baseURLString = "https://www.google.com" // TODO: replace with LeaderboardServer url
     private var userURLString: String? {
         guard let userId = UserManager.shared.user?.id else { return nil }
         
