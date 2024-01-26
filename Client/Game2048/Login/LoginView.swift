@@ -54,8 +54,9 @@ fileprivate extension LoginView {
     
     var submitButton: some View {
         Button {
-            UserManager.shared.saveUser(with: name)
-            isLoggedIn = UserManager.shared.isLoggedIn
+            UserManager.shared.saveUser(with: name) {
+                isLoggedIn = UserManager.shared.isLoggedIn
+            }
         } label: {
             Text(ViewConstants.submitButtonTitleContent)
                 .font(.title2)
