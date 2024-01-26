@@ -79,23 +79,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		731593772B6071200050D48F /* GameScreen */ = {
+		731593772B6071200050D48F /* Game */ = {
 			isa = PBXGroup;
 			children = (
 				73729FFC2B5B18A0007648B2 /* Models */,
 				73729FFB2B5B1894007648B2 /* Views */,
 			);
-			path = GameScreen;
+			path = Game;
 			sourceTree = "<group>";
 		};
-		731593782B6071660050D48F /* LeaderboardScreen */ = {
+		731593782B6071660050D48F /* Leaderboard */ = {
 			isa = PBXGroup;
 			children = (
 				731F6B8C2B608C7400782BF2 /* Views */,
 				731593792B6071790050D48F /* Models */,
 				7315937C2B6076590050D48F /* LeaderboardService.swift */,
 			);
-			path = LeaderboardScreen;
+			path = Leaderboard;
 			sourceTree = "<group>";
 		};
 		731593792B6071790050D48F /* Models */ = {
@@ -183,8 +183,8 @@
 			isa = PBXGroup;
 			children = (
 				731E1D642B6375F80099BD52 /* Login */,
-				731593772B6071200050D48F /* GameScreen */,
-				731593782B6071660050D48F /* LeaderboardScreen */,
+				731593772B6071200050D48F /* Game */,
+				731593782B6071660050D48F /* Leaderboard */,
 				73729FEA2B5B0954007648B2 /* Game2048App.swift */,
 				73729FF02B5B0955007648B2 /* Assets.xcassets */,
 				73729FF22B5B0955007648B2 /* Game2048.entitlements */,
