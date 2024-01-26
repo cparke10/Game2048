@@ -128,6 +128,18 @@
 			path = Login;
 			sourceTree = "<group>";
 		};
+		731E1D692B6381E70099BD52 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				73729FEA2B5B0954007648B2 /* Game2048App.swift */,
+				731E1D642B6375F80099BD52 /* Login */,
+				731593772B6071200050D48F /* Game */,
+				731593782B6071660050D48F /* Leaderboard */,
+				736370952B5F8DA5001DA5CE /* Utilities */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
 		731F6B8C2B608C7400782BF2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -182,14 +194,10 @@
 		73729FE92B5B0954007648B2 /* Game2048 */ = {
 			isa = PBXGroup;
 			children = (
-				731E1D642B6375F80099BD52 /* Login */,
-				731593772B6071200050D48F /* Game */,
-				731593782B6071660050D48F /* Leaderboard */,
-				73729FEA2B5B0954007648B2 /* Game2048App.swift */,
+				731E1D692B6381E70099BD52 /* Source */,
 				73729FF02B5B0955007648B2 /* Assets.xcassets */,
 				73729FF22B5B0955007648B2 /* Game2048.entitlements */,
 				73729FF32B5B0955007648B2 /* Preview Content */,
-				736370952B5F8DA5001DA5CE /* Utilities */,
 			);
 			path = Game2048;
 			sourceTree = "<group>";
