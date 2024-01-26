@@ -13,6 +13,7 @@ entry_db = db.entry
 
 base_endpoint = "/leaderboard"
 
+
 @app.post(base_endpoint)
 def create_user():
     _id = str(uuid1().hex)
@@ -39,7 +40,7 @@ def add_entry(user_id):
     }
 
     entry = request.json
-    entry["timestamp"] = datetime.now().isoformat()
+    entry["timestamp"] = datetime.utcnow().isoformat(timespec='seconds') + 'Z'
 
     content = {"$push": {"entries": entry}}
     result = entry_db.update_one(query, content, upsert=True)
@@ -56,9 +57,12 @@ def add_entry(user_id):
 
     return {"message": "Update success"}, 200
 
+
 @app.get(base_endpoint)
-def get_entries():
-    entries = entry_db.find({})
+@app.get("{}/<user_id>".format(base_endpoint))
+def get_entries(user_id=None):
+    query = {} if user_id is None else {"_id": user_id}
+    entries = entry_db.find(query)
     return {
         "data": list(entries)
     }, 200
