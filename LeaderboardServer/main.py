@@ -22,10 +22,10 @@ def create_user():
 
     result = entry_db.insert_one(content)
     if not result.inserted_id:
-        return {"message": "Failed to insert"}, 500
+        return {"isSuccessful": False}, 500
 
     return {
-        "message": "Success",
+        "isSuccessful": True,
         "data": {
             "id": result.inserted_id
         }
