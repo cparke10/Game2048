@@ -66,7 +66,7 @@ fileprivate extension LoginView {
         .frame(height: ViewConstants.submitButtonHeight)
         .frame(maxWidth: .infinity)
         .background(
-            LinearGradient(colors: [GameColors.color0, GameColors.color11],
+            LinearGradient(colors: [GameColors.color4, GameColors.color11],
                            startPoint: .topLeading,
                            endPoint: .bottomTrailing)
         )

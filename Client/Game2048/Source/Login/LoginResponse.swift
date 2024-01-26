@@ -8,11 +8,11 @@
 import Foundation
 
 /// Represents the response from the login API.
-struct LoginResponse: Decodable {
+struct LoginResponse: Game2048ServiceResponse {
     let isSuccessful: Bool
-    let data: Data
+    let data: ModelData
     
-    struct Data: Decodable {
+    struct ModelData: Decodable {
         let id: String
     }
 }

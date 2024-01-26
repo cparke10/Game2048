@@ -16,10 +16,10 @@ class LeaderboardService {
     /// - Parameters:
     ///   - type: The `LeaderboardType` to request the API for.
     ///   - completionHandler: The completion block to handle the service response.
-    func requestLeaderboard(for type: LeaderboardType, completionHandler: @escaping (Result<[LeaderboardEntry], Error>) -> Void) {
+    func requestLeaderboard(for type: LeaderboardType, completionHandler: @escaping (Result<LeaderboardResponse, Error>) -> Void) {
         guard let userId, let url = URL(string: "\(baseURL)\(type == .me ? userId : "")") else { return }
         
-        URLRequest.request(URLRequest(url: url), responseType: [LeaderboardEntry].self, completionHandler: completionHandler)
+        URLRequest.request(URLRequest(url: url), responseType: LeaderboardResponse.self, completionHandler: completionHandler)
     }
     
     /// Performs the leaderboard API request to submit an entry based on the score.

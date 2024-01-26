@@ -2,7 +2,7 @@
 //  UserManager.swift
 //  Game2048
 //
-//  Created by user253524 on 1/23/24.
+//  Created by Charlie Parker on 1/23/24.
 //
 
 import Foundation

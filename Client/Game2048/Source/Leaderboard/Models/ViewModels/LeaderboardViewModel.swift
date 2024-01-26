@@ -25,10 +25,11 @@ class LeaderboardViewModel: ObservableObject {
     enum State {
         case loading, loaded([LeaderboardEntryViewModel]), error
         
-        init(result: Result<[LeaderboardEntry], Error>) {
+        init(result: Result<LeaderboardResponse, Error>) {
             switch result {
-            case .success(let data):
-                // sort and rank the entry data and map to the entry view model
+            case .success(let response):
+                let data = response.data
+                // sort and rank the entry data and map to entry view model
                 let entryViewModels = Dictionary(grouping: data, by: { $0.score })
                     .sorted(by: { $0.key > $1.key })
                     .enumerated()
@@ -43,9 +44,9 @@ class LeaderboardViewModel: ObservableObject {
         }
     }
     
-    /// Requests the `LeaderboardService` using the instance's `LeaderboardType` and updates the view state using the response.
-    /// - Parameter type: The `LeaderboardType` to request.
-    func update(with result: Result<[LeaderboardEntry], Error>) {
+    /// Updates the view model using the given API result.
+    /// - Parameter result: The result of the `LeaderboardService` get call.
+    func update(with result: Result<LeaderboardResponse, Error>) {
         state = State(result: result)
     }
 }
