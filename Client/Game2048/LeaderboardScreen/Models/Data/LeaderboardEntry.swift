@@ -8,17 +8,16 @@
 import Foundation
 
 protocol LeaderboardEntryProtocol {
-    var username: String { get }
     var score: Int { get }
 }
 
-/// Represents a local entry to the leaderboard made by a user. Does not contain the entry date.
+/// Represents a local entry to the leaderboard made by a user.
 struct LocalLeaderboardEntry: Encodable, LeaderboardEntryProtocol {
-    let username: String
+    let id: String
     let score: Int
 }
 
-/// Represents an entry to the leaderboard from the API, along with the server date.
+/// Represents an entry to the leaderboard from the API, including the matched username and server date.
 struct LeaderboardEntry: Decodable, LeaderboardEntryProtocol {
     let username: String
     let score: Int
