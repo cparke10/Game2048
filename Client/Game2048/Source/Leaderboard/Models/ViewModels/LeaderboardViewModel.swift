@@ -10,9 +10,23 @@ import SwiftUI
 struct LeaderboardEntryViewModel: Identifiable, Hashable {
     let username: String
     let score: Int
-    let date: String // TODO: formatting
+    let date: String
     let rank: Int
     let id = UUID()
+    
+    init?(username: String, score: Int, date: String, rank: Int) {
+        self.username = username
+        self.score = score
+        let formatter = ISO8601DateFormatter()
+        if let date = formatter.date(from: date) {
+            let outputFormatter = DateFormatter()
+            outputFormatter.dateFormat = "MM/dd/yyyy"
+            self.date = outputFormatter.string(from: date)
+        } else {
+            return nil
+        }
+        self.rank = rank
+    }
 }
 
 class LeaderboardViewModel: ObservableObject {
@@ -34,7 +48,7 @@ class LeaderboardViewModel: ObservableObject {
                     .sorted(by: { $0.key > $1.key })
                     .enumerated()
                     .flatMap { (index, entryGroup) in
-                        entryGroup.value.map { entry in
+                        entryGroup.value.compactMap { entry in
                             LeaderboardEntryViewModel(username: entry.username, score: entry.score, date: entry.date, rank: index + 1)
                         }
                     }
