@@ -4,6 +4,8 @@ from db import Connection
 from uuid import uuid1
 from flask import request
 
+from datetime import datetime
+
 app = Flask(__name__)
 db = Connection('game2048_leaderboard')
 
@@ -35,7 +37,11 @@ def add_entry(user_id):
     query = {
         "_id": user_id
     }
-    content = {"$push": {"entries": request.json["entry"]}}
+
+    entry = request.json
+    entry["timestamp"] = datetime.now().isoformat()
+
+    content = {"$push": {"entries": entry}}
     result = entry_db.update_one(query, content, upsert=True)
 
     if not result.matched_count:
