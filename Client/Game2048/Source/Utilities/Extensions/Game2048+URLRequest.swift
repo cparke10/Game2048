@@ -29,13 +29,4 @@ extension URLRequest {
             }
         }.resume()
     }
-    
-    /// Container for the supported HTTP methods.
-    enum HTTPMethod: String {
-        case get
-        case post
-        case put
-        
-        var rawValue: String { String(describing: self).uppercased() }
-    }
 }

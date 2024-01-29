@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		73107B642B68383200CCDF7A /* Game2048URLRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73107B632B68383200CCDF7A /* Game2048URLRequest.swift */; };
 		73127A7B2B6219D5007D5BCC /* SubmissionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73127A7A2B6219D5007D5BCC /* SubmissionResponse.swift */; };
 		7315937B2B60718D0050D48F /* LeaderboardEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7315937A2B60718D0050D48F /* LeaderboardEntry.swift */; };
 		7315937D2B6076590050D48F /* LeaderboardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7315937C2B6076590050D48F /* LeaderboardService.swift */; };
@@ -18,6 +19,8 @@
 		731E1D682B637AF90099BD52 /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731E1D672B637AF90099BD52 /* LoginResponse.swift */; };
 		731F6B8E2B608C8400782BF2 /* LeaderboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731F6B8D2B608C8400782BF2 /* LeaderboardView.swift */; };
 		731F6B922B60AC6400782BF2 /* LeaderboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731F6B912B60AC6400782BF2 /* LeaderboardViewModel.swift */; };
+		734380BA2B68344400859176 /* ServiceConfiguration.plist in Resources */ = {isa = PBXBuildFile; fileRef = 734380B92B68344400859176 /* ServiceConfiguration.plist */; };
+		734380BC2B6834AF00859176 /* ServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734380BB2B6834AF00859176 /* ServiceManager.swift */; };
 		736370942B5F8D49001DA5CE /* Game2048+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736370932B5F8D49001DA5CE /* Game2048+View.swift */; };
 		736370982B5F8F73001DA5CE /* GameColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736370972B5F8F73001DA5CE /* GameColors.swift */; };
 		737139CB2B6438AB00817EC8 /* Game2048ServiceResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737139CA2B6438AB00817EC8 /* Game2048ServiceResponse.swift */; };
@@ -38,6 +41,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		73107B632B68383200CCDF7A /* Game2048URLRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game2048URLRequest.swift; sourceTree = "<group>"; };
 		73127A7A2B6219D5007D5BCC /* SubmissionResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmissionResponse.swift; sourceTree = "<group>"; };
 		7315937A2B60718D0050D48F /* LeaderboardEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardEntry.swift; sourceTree = "<group>"; };
 		7315937C2B6076590050D48F /* LeaderboardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardService.swift; sourceTree = "<group>"; };
@@ -49,6 +53,8 @@
 		731E1D672B637AF90099BD52 /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
 		731F6B8D2B608C8400782BF2 /* LeaderboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardView.swift; sourceTree = "<group>"; };
 		731F6B912B60AC6400782BF2 /* LeaderboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardViewModel.swift; sourceTree = "<group>"; };
+		734380B92B68344400859176 /* ServiceConfiguration.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ServiceConfiguration.plist; sourceTree = "<group>"; };
+		734380BB2B6834AF00859176 /* ServiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceManager.swift; sourceTree = "<group>"; };
 		736370932B5F8D49001DA5CE /* Game2048+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Game2048+View.swift"; sourceTree = "<group>"; };
 		736370972B5F8F73001DA5CE /* GameColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameColors.swift; sourceTree = "<group>"; };
 		737139CA2B6438AB00817EC8 /* Game2048ServiceResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game2048ServiceResponse.swift; sourceTree = "<group>"; };
@@ -81,6 +87,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		73107B622B6837E900CCDF7A /* ServiceManager */ = {
+			isa = PBXGroup;
+			children = (
+				734380B92B68344400859176 /* ServiceConfiguration.plist */,
+				734380BB2B6834AF00859176 /* ServiceManager.swift */,
+				73107B632B68383200CCDF7A /* Game2048URLRequest.swift */,
+				737139CA2B6438AB00817EC8 /* Game2048ServiceResponse.swift */,
+			);
+			path = ServiceManager;
+			sourceTree = "<group>";
+		};
 		731593772B6071200050D48F /* Game */ = {
 			isa = PBXGroup;
 			children = (
@@ -171,9 +188,9 @@
 		736370952B5F8DA5001DA5CE /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				73107B622B6837E900CCDF7A /* ServiceManager */,
 				731E1D632B6375AC0099BD52 /* Extensions */,
 				736370972B5F8F73001DA5CE /* GameColors.swift */,
-				737139CA2B6438AB00817EC8 /* Game2048ServiceResponse.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -319,6 +336,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				734380BA2B68344400859176 /* ServiceConfiguration.plist in Resources */,
 				73729FF52B5B0955007648B2 /* Preview Assets.xcassets in Resources */,
 				73729FF12B5B0955007648B2 /* Assets.xcassets in Resources */,
 			);
@@ -336,6 +354,7 @@
 				73B507252B60CFD5006117FE /* UserManager.swift in Sources */,
 				73EEABCD2B5B7DFF005149C2 /* LeaderboardButton.swift in Sources */,
 				7315937B2B60718D0050D48F /* LeaderboardEntry.swift in Sources */,
+				734380BC2B6834AF00859176 /* ServiceManager.swift in Sources */,
 				731F6B922B60AC6400782BF2 /* LeaderboardViewModel.swift in Sources */,
 				73729FED2B5B0954007648B2 /* LandingPage.swift in Sources */,
 				731E1D662B6376090099BD52 /* LoginService.swift in Sources */,
@@ -345,6 +364,7 @@
 				73AEADF42B5EE60100E12D2E /* TileModel.swift in Sources */,
 				7315937F2B6077790050D48F /* LeaderboardType.swift in Sources */,
 				731E1D622B63755C0099BD52 /* Game2048+URLRequest.swift in Sources */,
+				73107B642B68383200CCDF7A /* Game2048URLRequest.swift in Sources */,
 				731E1D682B637AF90099BD52 /* LoginResponse.swift in Sources */,
 				731F6B8E2B608C8400782BF2 /* LeaderboardView.swift in Sources */,
 				736370942B5F8D49001DA5CE /* Game2048+View.swift in Sources */,

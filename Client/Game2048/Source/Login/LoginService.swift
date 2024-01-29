@@ -9,7 +9,13 @@ import Foundation
 
 /// Manges requests to the leaderboard API.
 class LoginService {
-    private let baseRequest = URLRequest(url: URL(string : "https://www.google.com")!)
+    
+    /// The `Game2048URLRequest` used to make requests to login.
+    struct LoginRequest: Game2048URLRequest {
+        let pathComponent = "leaderboard"
+        let method = HTTPMethod.post
+        let body: Data?
+    }
     
     /// Performs the request to the login API.
     /// - Parameters:
@@ -18,10 +24,6 @@ class LoginService {
     func login(with username: String, completionHandler: @escaping (Result<LoginResponse, Error>) -> Void) {
         guard let body = try? JSONEncoder().encode(["name": username]) else { return }
         
-        var request = baseRequest
-        request.httpMethod = URLRequest.HTTPMethod.post.rawValue
-        request.httpBody = body
-        
-        URLRequest.request(baseRequest, responseType: LoginResponse.self, completionHandler: completionHandler)
+        URLRequest.request(LoginRequest(body: body).request, responseType: LoginResponse.self, completionHandler: completionHandler)
     }
 }
