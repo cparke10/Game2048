@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// Protocl used for response objects in service calls.
+/// Protocol used for response objects in service calls.
 protocol Game2048ServiceResponse: Decodable {
     associatedtype ModelData: Decodable
     var data: ModelData { get }
