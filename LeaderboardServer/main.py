@@ -19,18 +19,28 @@ def create_user():
     _id = str(uuid1().hex)
 
     content = dict(request.json)
-    content.update({"_id": _id})
+    print(content.get("name"))
+    existing_user = entry_db.find_one({"name": content.get("name")})
+    if existing_user is None:
+        content.update({"_id": _id})
 
-    result = entry_db.insert_one(content)
-    if not result.inserted_id:
-        return {"isSuccessful": False}, 500
+        result = entry_db.insert_one(content)
+        if not result.inserted_id:
+            return {"isSuccessful": False}, 500
 
-    return {
-        "isSuccessful": True,
-        "data": {
-            "id": result.inserted_id
-        }
-    }, 200
+        return {
+            "isSuccessful": True,
+            "data": {
+                "id": result.inserted_id
+            }
+        }, 200
+    else:
+        return {
+            "isSuccessful": True,
+            "data": {
+                "id": existing_user["_id"]
+            }
+        }, 200
 
 
 @app.put("{}/<user_id>/".format(base_endpoint))
