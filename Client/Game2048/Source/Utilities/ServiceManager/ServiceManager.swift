@@ -24,6 +24,7 @@ class ServiceManager {
     
     private let configuration: ServiceConfiguration = ServiceManager.parseConfigurationPropertyList()
     
+    /// The URL string for the API domain based on app environment.
     var domainString: String {
         #if DEBUG
         return configuration.debugDomain

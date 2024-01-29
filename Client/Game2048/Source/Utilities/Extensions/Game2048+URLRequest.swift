@@ -13,10 +13,10 @@ extension URLRequest {
     ///   - urlRequest: The `URLRequest` to start the task for.
     ///   - responseType: The response type associated with the request.
     ///   - completionHandler: The completion block to handle the service response.
-    static func request<ResponseType: Decodable>(_ urlRequest: URLRequest,
+    static func request<ResponseType: Decodable>(_ gameRequest: Game2048URLRequest,
                                                  responseType: ResponseType.Type,
                                                  completionHandler: @escaping (Result<ResponseType, Error>) -> Void) {
-        URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
+        URLSession.shared.dataTask(with: gameRequest.request) { (data, response, error) in
             if let error {
                 completionHandler(.failure(error))
             } else if let data = data,

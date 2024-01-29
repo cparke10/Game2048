@@ -24,6 +24,6 @@ class LoginService {
     func login(with username: String, completionHandler: @escaping (Result<LoginResponse, Error>) -> Void) {
         guard let body = try? JSONEncoder().encode(["name": username]) else { return }
         
-        URLRequest.request(LoginRequest(body: body).request, responseType: LoginResponse.self, completionHandler: completionHandler)
+        URLRequest.request(LoginRequest(body: body), responseType: LoginResponse.self, completionHandler: completionHandler)
     }
 }

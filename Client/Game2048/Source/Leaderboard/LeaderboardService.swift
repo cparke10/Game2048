@@ -30,7 +30,7 @@ class LeaderboardService {
     ///   - type: The `LeaderboardType` to request the API for.
     ///   - completionHandler: The completion block to handle the service response.
     func requestLeaderboard(for type: LeaderboardType, completionHandler: @escaping (Result<LeaderboardResponse, Error>) -> Void) {
-        URLRequest.request(GetLeaderboardRequest(type: type).request, responseType: LeaderboardResponse.self, completionHandler: completionHandler)
+        URLRequest.request(GetLeaderboardRequest(type: type), responseType: LeaderboardResponse.self, completionHandler: completionHandler)
     }
     
     /// Performs the leaderboard API request to submit an entry based on the score.
@@ -40,6 +40,6 @@ class LeaderboardService {
     func submitEntry(score: Int, completionHandler: @escaping (Result<SubmissionResponse, Error>) -> Void) {
         guard let body = try? JSONEncoder().encode(LocalLeaderboardEntry(score: score)) else { return }
         
-        URLRequest.request(SubmitLeaderboardEntryRequest(body: body).request, responseType: SubmissionResponse.self, completionHandler: completionHandler)
+        URLRequest.request(SubmitLeaderboardEntryRequest(body: body), responseType: SubmissionResponse.self, completionHandler: completionHandler)
     }
 }
