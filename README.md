@@ -11,4 +11,4 @@ Game Set:
 3. When a collapse is completed, the collapsed tiles will increment as a power of 2, e.g., combining two 8 tiles will result in a new single tile valued at 16.
 4. When the user has no available collapses left, the game is over.
 
-The game tracks the current user score and displays it to the user. Score is incremented whenever a succesful tile combine occurs at the value of the new tile. When the user combines two 1024 tiles to create a 2048, the game can be considered over. This is not an endgame state; the game will continue along the game logic. Leaderboard functionality is added both for the user and globally.
+The game tracks the current user score and displays it to the user. Score is incremented whenever a succesful tile combine occurs at the value of the new tile. When the user combines two 1024 tiles to create a 2048, the game can be considered over. This is not an endgame state; the game will continue along the game logic. Leaderboard functionality is added both for the user and globally using the LeaderboardSever.

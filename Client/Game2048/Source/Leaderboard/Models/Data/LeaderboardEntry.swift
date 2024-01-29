@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Represents a leaderboard entry containing a score field.
 protocol LeaderboardEntryProtocol {
     var score: Int { get }
 }
@@ -15,10 +16,7 @@ protocol LeaderboardEntryProtocol {
 // MARK: Local data
 
 /// Represents a local entry to the leaderboard made by a user.
-struct LocalLeaderboardEntry: Encodable, LeaderboardEntryProtocol {
-    let id: String
-    let score: Int
-}
+struct LocalLeaderboardEntry: Encodable, LeaderboardEntryProtocol { let score: Int }
 
 // MARK: API data
 
