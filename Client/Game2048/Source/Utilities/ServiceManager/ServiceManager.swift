@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Manager used to built API requests based on app environment.
 class ServiceManager {
     static let shared = ServiceManager()
     
