@@ -7,6 +7,7 @@ from flask import request
 from datetime import datetime
 
 app = Flask(__name__)
+app.url_map.strict_slashes = False
 db = Connection('game2048_leaderboard')
 
 entry_db = db.entry
@@ -65,7 +66,7 @@ def add_entry(user_id):
             "message": "No changes applied"
         }, 500
 
-    return {"message": "Update success"}, 200
+    return {"isSuccessful": True}, 200
 
 
 @app.get(base_endpoint)
