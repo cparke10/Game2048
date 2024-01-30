@@ -11,7 +11,7 @@ import Foundation
 class LoginService {
     
     /// The `Game2048URLRequest` used to make requests to login.
-    struct LoginRequest: Game2048URLRequest {
+    private struct LoginRequest: Game2048URLRequest {
         let pathComponent = "leaderboard"
         let method = HTTPMethod.post
         let body: Data?

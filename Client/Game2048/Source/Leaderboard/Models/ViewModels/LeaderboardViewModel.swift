@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// View model for an entry to the leaderboard. Holds the entry data and manages date formatting from the service model.
 struct LeaderboardEntryViewModel: Identifiable, Hashable {
     let username: String
     let score: Int
@@ -29,6 +30,7 @@ struct LeaderboardEntryViewModel: Identifiable, Hashable {
     }
 }
 
+/// View model for the leaderboard. Manages entry ranking and the service request and based on the provided `LeaderboardType`.
 class LeaderboardViewModel: ObservableObject {
     let type: LeaderboardType
     private let service = LeaderboardService()
@@ -58,9 +60,12 @@ class LeaderboardViewModel: ObservableObject {
         }
     }
     
-    /// Updates the view model using the given API result.
-    /// - Parameter result: The result of the `LeaderboardService` get call.
-    func update(with result: Result<LeaderboardResponse, Error>) {
-        state = State(result: result)
+    /// Requests the `LeaderboardService` using the type and updates the `state` with the result.
+    func requestLeaderboard() {
+        service.requestLeaderboard(for: type) { result in
+            DispatchQueue.main.async { [weak self] in
+                self?.state = State(result: result)
+            }
+        }
     }
 }

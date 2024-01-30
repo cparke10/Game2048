@@ -11,7 +11,6 @@ import SwiftUI
 struct LeaderboardView: View {
     
     @ObservedObject private var viewModel: LeaderboardViewModel
-    private let service = LeaderboardService()
 
     /// Container for the constants used in the view
     private struct ViewConstants {
@@ -31,17 +30,8 @@ struct LeaderboardView: View {
             case .loading:
                 ProgressView()
                     .onAppear {
-                        requestLeaderboard()
+                        viewModel.requestLeaderboard()
                     }
-            }
-        }
-    }
-    
-    /// Requests the `LeaderboardService` using the viewModel's type and updates the viewModel state with the result.
-    private func requestLeaderboard() {
-        service.requestLeaderboard(for: viewModel.type) { result in
-            DispatchQueue.main.async {
-                self.viewModel.update(with: result)
             }
         }
     }
@@ -89,7 +79,7 @@ fileprivate extension LeaderboardView {
     var errorView: some View {
         VStack {
             Spacer()
-            Label(ViewConstants.errorString, ViewConstants.errorIconResource)
+            Label(ViewConstants.errorString, systemImage: ViewConstants.errorIconResource)
             Spacer()
             Spacer()
             Spacer()
