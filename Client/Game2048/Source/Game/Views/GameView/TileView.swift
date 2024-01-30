@@ -11,6 +11,7 @@ import SwiftUI
 struct TileView: View {
     private let viewModel: TileViewModel
 
+    /// Container for the constants used in the view
     private struct ViewConstants {
         static let cornerRadius: CGFloat = 4
         static let spawnScaleAnimationDuration: Double = 0.2
