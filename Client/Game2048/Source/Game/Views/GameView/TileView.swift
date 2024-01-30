@@ -18,7 +18,7 @@ struct TileView: View {
         static let preSpawnScale: Double = 0.95
         static let postSpawnScale: Double = 1
     }
-    @State var spawnScale: Double = ViewConstants.preSpawnScale
+    @State private var spawnScale: Double = ViewConstants.preSpawnScale
     
     /// The color associated with the tile as driven by its value.
     private var color: Color {
