@@ -12,9 +12,14 @@ struct LeaderboardView: View {
     
     @ObservedObject private var viewModel: LeaderboardViewModel
     private let service = LeaderboardService()
-    
-    private static let errorString = NSLocalizedString("We're sorry, we had trouble loading the leaderboard. Please come back later.",
-                                                       comment: "Leaderboard error state content")
+
+    /// Container for the constants used in the view
+    private struct ViewConstants {
+        static let errorString = NSLocalizedString("We're sorry, we had trouble loading the leaderboard. Please come back later.",
+                                                   comment: "Leaderboard error state content")
+        static let errorIconResource = "three.by.three.badge.xmark"
+        static let rankLabelBorderWidth: CGFloat = 4
+    }
     
     init(viewModel: LeaderboardViewModel) { self.viewModel = viewModel }
     
@@ -60,7 +65,7 @@ fileprivate extension LeaderboardView {
                                 .padding()
                                 .background {
                                     Circle()
-                                        .stroke(GameColors.color4, lineWidth: 4)
+                                        .stroke(GameColors.color4, lineWidth: ViewConstants.rankLabelBorderWidth)
                                 }
                             Text(String(entry.username))
                                 .foregroundStyle(GameColors.color11)
@@ -84,7 +89,7 @@ fileprivate extension LeaderboardView {
     var errorView: some View {
         VStack {
             Spacer()
-            Label(Self.errorString, systemImage: "three.by.three.badge.xmark")
+            Label(ViewConstants.errorString, ViewConstants.errorIconResource)
             Spacer()
             Spacer()
             Spacer()
