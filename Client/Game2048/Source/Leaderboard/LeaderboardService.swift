@@ -7,20 +7,31 @@
 
 import Foundation
 
+/// Protocol used for requests to the leaderboard API. Allows for inclusion of a userId path component.
+fileprivate protocol LeaderboardRequest: Game2048URLRequest {
+    var includeUserId: Bool { get }
+}
+
+extension LeaderboardRequest {
+    /// The portion of the path which describes the userId.
+    private var userIdComponent: String { includeUserId ? UserManager.shared.user?.id ?? "" : "" }
+    
+    var pathComponent: String { "leaderboard/\(userIdComponent)"}
+}
+
 /// Manges requests to the leaderboard API.
 class LeaderboardService {
 
     /// The `Game2048URLRequest` used to request the leaderboard for some `LeaderboardType`.
-    private struct GetLeaderboardRequest: Game2048URLRequest {
-        var pathComponent: String { "leaderboard/\(type == .me ? UserManager.shared.user?.id ?? "" : "")" }
+    private struct GetLeaderboardRequest: LeaderboardRequest {
+        let includeUserId: Bool
         let method = HTTPMethod.get
         let body: Data? = nil
-        let type: LeaderboardType
     }
     
-    /// The `Game2048URLRequest` used to submit entries to the leaderboard.
-    private struct SubmitLeaderboardEntryRequest: Game2048URLRequest {
-        let pathComponent = "leaderboard"
+    /// The `Game2048URLRequest` used to submit entries to the leaderboard for the user.
+    private struct SubmitLeaderboardEntryRequest: LeaderboardRequest {
+        let includeUserId = true
         let method = HTTPMethod.put
         let body: Data?
     }
@@ -30,10 +41,12 @@ class LeaderboardService {
     ///   - type: The `LeaderboardType` to request the API for.
     ///   - completionHandler: The completion block to handle the service response.
     func requestLeaderboard(for type: LeaderboardType, completionHandler: @escaping (Result<LeaderboardResponse, Error>) -> Void) {
-        URLRequest.request(GetLeaderboardRequest(type: type), responseType: LeaderboardResponse.self, completionHandler: completionHandler)
+        URLRequest.request(GetLeaderboardRequest(includeUserId: type == .me),
+                           responseType: LeaderboardResponse.self,
+                           completionHandler: completionHandler)
     }
     
-    /// Performs the leaderboard API request to submit an entry based on the score.
+    /// Performs the leaderboard API request to submit an entry for the user with the game score.
     /// - Parameters:
     ///   - score: The game score to upload to the API.
     ///   - completionHandler: The completion block to handle the service response.
