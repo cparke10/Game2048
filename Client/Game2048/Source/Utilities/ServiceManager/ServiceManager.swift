@@ -19,7 +19,7 @@ class ServiceManager {
     
     /// Helper function used to parse the config from the plist.
     private static func parseConfigurationPropertyList() -> ServiceConfiguration {
-        let url = URL(string: Bundle.main.path(forResource: String(reflecting: ServiceConfiguration.self), ofType: "plist")!)!
+        let url = Bundle.main.url(forResource: "ServiceConfiguration", withExtension: "plist")!
         let data = try! Data(contentsOf: url)
         return try! PropertyListDecoder().decode(ServiceConfiguration.self, from: data)
     }
