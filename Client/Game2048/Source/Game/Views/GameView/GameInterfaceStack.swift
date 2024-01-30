@@ -28,9 +28,7 @@ struct GameInterfaceStack: View {
 }
 
 fileprivate extension GameInterfaceStack {
-    /// Constructs and returns a stack of labels used to represent the score.
-    /// - Parameter score: The score used to configure the view.
-    /// - Returns: A view for the score.
+    /// The label used to reflect the game score.
     var scoreLabel: some View {
         HStack {
             Text(ViewConstants.scoreKey)
@@ -47,7 +45,7 @@ fileprivate extension GameInterfaceStack {
         .frame(maxWidth: .infinity, alignment: .trailing)
     }
     
-    /// The button used to reset the dependent view model.
+    /// The button used to reset the view model through the callback to the parent view model.
     var resetButton: some View {
         Button {
             viewModel.resetCallback()
